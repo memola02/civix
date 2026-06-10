@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Civix | Reportar incidencia</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/citizen.css" />
+    <link rel="stylesheet" href="../css/reportar.css" />
+  </head>
+
+  <body>
+    <header class="top-header">
+      <a class="brand" href="inicio.html">
+        <img src="../assets/logo/civix.png" alt="Civix" class="brand-logo" />
+        <span class="brand-name">Civix</span>
+      </a>
+
+      <form class="search-bar">
+        <input type="search" placeholder="Buscar..." aria-label="Buscar" />
+      </form>
+
+      <button
+        class="profile-button"
+        aria-label="Abrir perfil de usuario"
+      ></button>
+    </header>
+
+    <nav class="main-nav">
+      <a class="nav-link" href="inicio.html">Inicio</a>
+      <a class="nav-link active" href="reportar.html">Reportar incidencia</a>
+      <a class="nav-link" href="seguimiento.html">Seguimiento de reportes</a>
+      <a class="help-button" href="#">Ayuda & Tutorial</a>
+    </nav>
+
+    <main>
+      <section class="report-hero">
+        <div class="report-hero-content">
+          <h1>Nuevo reporte de incidencia urbana</h1>
+          <p>
+            Completa el formulario para registrar un problema en tu distrito.
+          </p>
+        </div>
+      </section>
+
+      <section class="report-layout">
+        <aside class="report-summary">
+          <h2>Resumen con asistente</h2>
+
+          <ul>
+            <li>Categoría detectada</li>
+            <li>Fotos adjuntadas</li>
+            <li>Ubicación marcada</li>
+            <li class="pending">Detalles adicionales</li>
+          </ul>
+
+          <button type="button">Añadir detalles</button>
+        </aside>
+
+        <form class="report-card" id="reportForm" novalidate>
+          <div class="progress-header">
+            <span id="progressText">Completa los campos requeridos</span>
+            <span id="progressPercent">0%</span>
+          </div>
+
+          <div class="progress-bar">
+            <span id="progressFill"></span>
+          </div>
+
+          <h2>Datos de la incidencia</h2>
+
+          <div class="report-grid">
+            <div class="form-group">
+              <label for="categoria">Categoría</label>
+              <small>Selecciona el tipo/categoría de la incidencia</small>
+
+              <select id="categoria" name="categoria">
+                <option value="">Seleccionar categoría</option>
+                <option value="Basura acumulada">Basura acumulada</option>
+                <option value="Pista dañada">Pista dañada</option>
+                <option value="Alumbrado público">Alumbrado público</option>
+              </select>
+              <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+              <div class="field-header">
+                <div>
+                  <label for="descripcion">Descripción breve</label>
+                  <small>Describe brevemente la problemática</small>
+                </div>
+
+                <div class="field-actions">
+                  <button type="button" class="ai-button">Corrección IA</button>
+
+                  <button type="button" class="voice-button">
+                    🎙 Voz a texto
+                  </button>
+                </div>
+              </div>
+
+              <textarea
+                id="descripcion"
+                name="descripcion"
+                maxlength="150"
+                placeholder="Describe el problema en máximo 150 caracteres"
+              ></textarea>
+
+              <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+              <label>Fotos</label>
+              <small>Adjuntar evidencia fotográfica sobre el incidente</small>
+
+              <div class="upload-box">
+                <input id="foto" name="foto" type="file" accept="image/*" />
+              </div>
+              <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="ubicacion">Ubicación precisa</label>
+              <small>Indicar la ubicación precisa de la incidencia</small>
+
+              <div class="map-box">
+                <img
+                  src="../assets/img/mapa-demo.png"
+                  alt="Mapa de ubicación seleccionada"
+                />
+              </div>
+
+              <input
+                id="ubicacion"
+                name="ubicacion"
+                type="text"
+                placeholder="Ej. Av. San Juan 123"
+              />
+              <span class="error-message"></span>
+            </div>
+          </div>
+
+          <div class="report-actions">
+            <button type="button" class="secondary-button">
+              Guardar como borrador
+            </button>
+            <button type="submit" class="primary-button">Enviar reporte</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <h3>Atención al ciudadano</h3>
+        <p>01-2134100</p>
+      </div>
+
+      <div>
+        <h3>Horario de atención</h3>
+        <p>De Lunes a Viernes: 6:00am - 6:00pm | Feriados: 8:00am - 12:00pm</p>
+      </div>
+
+      <div>
+        <h3>Síguenos</h3>
+        <div class="social-links">
+          <span>f</span>
+          <span>◎</span>
+          <span>☘</span>
+        </div>
+      </div>
+    </footer>
+    <script src="../js/reportar.js"></script>
+  </body>
+</html>
