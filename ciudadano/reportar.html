@@ -14,6 +14,10 @@
 
     <link rel="stylesheet" href="../css/citizen.css" />
     <link rel="stylesheet" href="../css/reportar.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
   </head>
 
   <body>
@@ -51,19 +55,6 @@
       </section>
 
       <section class="report-layout">
-        <aside class="report-summary">
-          <h2>Resumen con asistente</h2>
-
-          <ul>
-            <li>Categoría detectada</li>
-            <li>Fotos adjuntadas</li>
-            <li>Ubicación marcada</li>
-            <li class="pending">Detalles adicionales</li>
-          </ul>
-
-          <button type="button">Añadir detalles</button>
-        </aside>
-
         <form class="report-card" id="reportForm" novalidate>
           <div class="progress-header">
             <span id="progressText">Completa los campos requeridos</span>
@@ -74,7 +65,7 @@
             <span id="progressFill"></span>
           </div>
 
-          <h2>Datos de la incidencia</h2>
+          <h2 class="form-section-title">Datos de la incidencia</h2>
 
           <div class="report-grid">
             <div class="form-group">
@@ -109,8 +100,8 @@
               <textarea
                 id="descripcion"
                 name="descripcion"
-                maxlength="150"
-                placeholder="Describe el problema en máximo 150 caracteres"
+                maxlength="300"
+                placeholder="Describe el problema en máximo 300 caracteres"
               ></textarea>
 
               <span class="error-message"></span>
@@ -121,7 +112,25 @@
               <small>Adjuntar evidencia fotográfica sobre el incidente</small>
 
               <div class="upload-box">
-                <input id="foto" name="foto" type="file" accept="image/*" />
+                <input
+                  id="foto"
+                  name="foto"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  multiple
+                  hidden
+                />
+
+                <button
+                  type="button"
+                  class="add-photo-button"
+                  id="addPhotoButton"
+                >
+                  <img src="../assets/icons/camera.png" alt="" />
+                  AÑADIR
+                </button>
+
+                <div class="photo-list" id="photoList"></div>
               </div>
               <span class="error-message"></span>
             </div>
@@ -130,12 +139,7 @@
               <label for="ubicacion">Ubicación precisa</label>
               <small>Indicar la ubicación precisa de la incidencia</small>
 
-              <div class="map-box">
-                <img
-                  src="../assets/img/mapa-demo.png"
-                  alt="Mapa de ubicación seleccionada"
-                />
-              </div>
+              <div class="map-box" id="map"></div>
 
               <input
                 id="ubicacion"
@@ -148,9 +152,16 @@
           </div>
 
           <div class="report-actions">
-            <button type="button" class="secondary-button">
-              Guardar como borrador
-            </button>
+            <div class="draft-buttons">
+              <button type="button" id="saveDraftButton" class="draft-button">
+                Guardar borrador
+              </button>
+
+              <button type="button" id="loadDraftButton" class="draft-button">
+                Continuar borrador
+              </button>
+            </div>
+
             <button type="submit" class="primary-button">Enviar reporte</button>
           </div>
         </form>
@@ -177,6 +188,29 @@
         </div>
       </div>
     </footer>
+
+    <div class="modal-overlay" id="reportModal" hidden>
+      <div class="report-modal">
+        <button type="button" class="modal-close" id="modalClose">×</button>
+
+        <div class="modal-icon" id="modalIcon">
+          <img id="modalIconImg" src="" alt="" />
+        </div>
+
+        <h2 id="modalTitle">Título</h2>
+        <p id="modalMessage">Mensaje</p>
+
+        <div class="modal-actions">
+          <button type="button" class="secondary-button" id="modalSecondary">
+            Cerrar
+          </button>
+          <button type="button" class="primary-button" id="modalPrimary">
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="../js/reportar.js"></script>
   </body>
 </html>
