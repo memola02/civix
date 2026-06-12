@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Civix | Métricas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/manager.css" />
+  </head>
+
+  <body>
+    <header class="top-header">
+      <a class="brand" href="inicio.html">
+        <img src="../assets/logo/civix.png" alt="Civix" class="brand-logo" />
+        <span class="brand-name">Civix</span>
+      </a>
+
+      <button class="profile-button" aria-label="Abrir perfil de usuario">
+        <span></span>
+      </button>
+    </header>
+
+    <nav class="main-nav">
+      <a class="nav-link" href="inicio.html">Inicio</a>
+      <a class="nav-link" href="mapa.html">Mapa de incidencias</a>
+      <a class="nav-link active" href="metricas.html">Métricas</a>
+      <a class="help-button" href="#">Ayuda & Tutorial</a>
+    </nav>
+
+    <main>
+      <section class="manager-hero map-hero">
+        <div>
+          <span class="eyebrow">Analítica municipal</span>
+          <h1>Métricas de desempeño e incidencias</h1>
+          <p>
+            Consulta indicadores operativos para evaluar carga, resolución,
+            prioridad y evolución de reportes ciudadanos.
+          </p>
+        </div>
+      </section>
+
+      <section class="kpi-grid">
+        <article class="kpi-card">
+          <span class="kpi-label">Total reportes</span>
+          <strong id="metricsTotal">0</strong>
+          <p>Incidencias registradas.</p>
+        </article>
+
+        <article class="kpi-card">
+          <span class="kpi-label">Pendientes activos</span>
+          <strong id="metricsActive">0</strong>
+          <p>Casos aún no resueltos.</p>
+        </article>
+
+        <article class="kpi-card">
+          <span class="kpi-label">Resolución</span>
+          <strong id="metricsResolution">0%</strong>
+          <p>Reportes cerrados sobre el total.</p>
+        </article>
+
+        <article class="kpi-card">
+          <span class="kpi-label">Alta prioridad</span>
+          <strong id="metricsHigh">0</strong>
+          <p>Casos críticos detectados.</p>
+        </article>
+      </section>
+
+      <section class="metrics-layout">
+        <article class="panel-card">
+          <div class="section-heading">
+            <h2>Reportes por categoría</h2>
+            <p>Distribución de incidencias según tipo de problema.</p>
+          </div>
+
+          <div class="chart-box">
+            <canvas id="metricsCategoryChart"></canvas>
+          </div>
+        </article>
+
+        <article class="panel-card">
+          <div class="section-heading">
+            <h2>Reportes por estado</h2>
+            <p>Situación actual del flujo de atención.</p>
+          </div>
+
+          <div class="chart-box">
+            <canvas id="metricsStatusChart"></canvas>
+          </div>
+        </article>
+      </section>
+
+      <section class="metrics-layout">
+        <article class="panel-card">
+          <div class="section-heading">
+            <h2>Tendencia diaria</h2>
+            <p>Volumen de reportes recibidos por fecha.</p>
+          </div>
+
+          <div class="chart-box chart-box-large">
+            <canvas id="metricsTrendChart"></canvas>
+          </div>
+        </article>
+
+        <article class="panel-card">
+          <div class="section-heading">
+            <h2>Carga por área</h2>
+            <p>Casos activos asignados a cada unidad municipal.</p>
+          </div>
+
+          <div class="chart-box">
+            <canvas id="metricsAreaChart"></canvas>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel-card">
+        <div class="section-heading">
+          <h2>Lectura ejecutiva</h2>
+          <p>Resumen automático para apoyo a la toma de decisiones.</p>
+        </div>
+
+        <div class="insight-grid" id="metricsInsights"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <h3>Atención al ciudadano</h3>
+        <p>01-2134100</p>
+      </div>
+
+      <div>
+        <h3>Horario de atención</h3>
+        <p>
+          De lunes a viernes: 6:00 a.m. - 6:00 p.m. | Feriados: 8:00 a.m. -
+          12:00 p.m.
+        </p>
+      </div>
+
+      <div>
+        <h3>Síguenos</h3>
+        <div class="social-links">
+          <span>f</span>
+          <span>◎</span>
+          <span>☘</span>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/incidenciasStore.js"></script>
+    <script src="../js/gestorMetricas.js"></script>
+  </body>
+</html>

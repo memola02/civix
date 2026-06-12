@@ -218,10 +218,16 @@ a {
 }
 
 .eyebrow {
-  display: inline-block;
+  display: inline-flex;
   margin-bottom: 12px;
-  font-weight: 700;
-  opacity: 0.85;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .admin-hero h1 {

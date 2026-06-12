@@ -26,6 +26,10 @@ const fields = {
     element: document.querySelector("#categoria"),
     message: "Seleccione una categoría.",
   },
+  titulo: {
+    element: document.querySelector("#titulo"),
+    message: "Ingrese un título para la incidencia.",
+  },
   descripcion: {
     element: document.querySelector("#descripcion"),
     message: "Ingrese una descripción breve.",
@@ -39,6 +43,60 @@ const fields = {
     message: "Ingrese o seleccione una ubicación.",
   },
 };
+
+const STORAGE_KEY = "civixIncidencias";
+
+async function obtenerIncidencias() {
+  const datosGuardados = localStorage.getItem(STORAGE_KEY);
+
+  if (datosGuardados) {
+    return JSON.parse(datosGuardados);
+  }
+
+  const respuesta = await fetch("../data/incidencias.json");
+  const incidencias = await respuesta.json();
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(incidencias));
+
+  return incidencias;
+}
+
+function guardarIncidencias(incidencias) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(incidencias));
+}
+
+async function registrarIncidenciaCiudadana() {
+  const incidencias = await obtenerIncidencias();
+
+  const nuevaIncidencia = {
+    id: `INC-${String(incidencias.length + 1).padStart(3, "0")}`,
+    titulo: fields.titulo.element.value,
+    categoria: fields.categoria.element.value,
+    ubicacion: fields.ubicacion.element.value,
+    coordenadas: coordenadasSeleccionadas,
+    fecha: new Date().toLocaleDateString("es-PE"),
+    ciudadano: "Ciudadano demo",
+    prioridad: "Media",
+    estado: "Pendiente",
+    area: "Por asignar",
+    descripcion: fields.descripcion.element.value,
+    imagen: "../assets/incidencias/default.jpg",
+    fechaReporte: new Date().toISOString(),
+    historial: [
+      {
+        fecha: new Date().toISOString(),
+        accion: "Reporte creado por el ciudadano.",
+      },
+      {
+        fecha: new Date().toISOString(),
+        accion: "Incidencia recibida en bandeja administrativa.",
+      },
+    ],
+  };
+
+  incidencias.unshift(nuevaIncidencia);
+  guardarIncidencias(incidencias);
+}
 
 function showError(input, message) {
   const group = input.closest(".form-group");
@@ -320,7 +378,7 @@ reportModal.addEventListener("click", (event) => {
   }
 });
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   let isValid = true;
@@ -336,6 +394,8 @@ form.addEventListener("submit", (event) => {
   const percent = updateProgress();
 
   if (isValid && percent === 100) {
+    await registrarIncidenciaCiudadana();
+    localStorage.removeItem("civixDraft");
     openModal("success");
   } else {
     openModal("error");
@@ -347,6 +407,11 @@ form.addEventListener("submit", (event) => {
 const ubicacionInput = document.querySelector("#ubicacion");
 
 const map = L.map("map").setView([-12.0464, -77.0428], 13);
+
+let coordenadasSeleccionadas = {
+  lat: -12.0464,
+  lng: -77.0428,
+};
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
@@ -391,6 +456,11 @@ async function searchAddress(address) {
   const lat = Number(data[0].lat);
   const lon = Number(data[0].lon);
 
+  coordenadasSeleccionadas = {
+    lat,
+    lng: lon,
+  };
+
   marker.setLatLng([lat, lon]);
   map.setView([lat, lon], 17);
 
@@ -402,12 +472,23 @@ async function searchAddress(address) {
 map.on("click", (event) => {
   const { lat, lng } = event.latlng;
 
+  coordenadasSeleccionadas = {
+    lat,
+    lng,
+  };
+
   marker.setLatLng([lat, lng]);
   reverseGeocode(lat, lng);
 });
 
 marker.on("dragend", () => {
   const position = marker.getLatLng();
+
+  coordenadasSeleccionadas = {
+    lat: position.lat,
+    lng: position.lng,
+  };
+
   reverseGeocode(position.lat, position.lng);
 });
 

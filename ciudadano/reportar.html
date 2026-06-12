@@ -42,7 +42,8 @@
 
     <main>
       <section class="report-hero">
-        <div class="report-hero-content">
+        <div>
+          <span class="eyebrow">Nuevo reporte</span>
           <h1>Nuevo reporte de incidencia urbana</h1>
           <p>
             Completa el formulario para registrar un problema en tu distrito.
@@ -65,15 +66,15 @@
 
           <div class="report-grid">
             <div class="form-group">
-              <label for="categoria">Categoría</label>
-              <small>Selecciona el tipo/categoría de la incidencia</small>
+              <label for="titulo">Título</label>
+              <small>Ingrese un título para la incidencia</small>
 
-              <select id="categoria" name="categoria">
-                <option value="">Seleccionar categoría</option>
-                <option value="Basura acumulada">Basura acumulada</option>
-                <option value="Pista dañada">Pista dañada</option>
-                <option value="Alumbrado público">Alumbrado público</option>
-              </select>
+              <input
+                id="titulo"
+                name="titulo"
+                type="text"
+                placeholder="Ingrese un título para la incidencia"
+              />
               <span class="error-message"></span>
             </div>
 
@@ -104,30 +105,20 @@
             </div>
 
             <div class="form-group">
-              <label>Fotos</label>
-              <small>Adjuntar evidencia fotográfica sobre el incidente</small>
+              <label for="categoria">Categoría</label>
+              <small>Selecciona el tipo/categoría de la incidencia</small>
 
-              <div class="upload-box">
-                <input
-                  id="foto"
-                  name="foto"
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  multiple
-                  hidden
-                />
-
-                <button
-                  type="button"
-                  class="add-photo-button"
-                  id="addPhotoButton"
-                >
-                  <img src="../assets/icons/camera.png" alt="" />
-                  AÑADIR
-                </button>
-
-                <div class="photo-list" id="photoList"></div>
-              </div>
+              <select id="categoria" name="categoria">
+                <option value="">Seleccionar categoría</option>
+                <option value="Poda de árboles">Poda de árboles</option>
+                <option value="Baches y hundimientos">
+                  Baches y hundimientos
+                </option>
+                <option value="Acumulación de residuos">
+                  Acumulación de residuos
+                </option>
+                <option value="Alumbrado público">Alumbrado público</option>
+              </select>
               <span class="error-message"></span>
             </div>
 
@@ -145,6 +136,34 @@
               />
               <span class="error-message"></span>
             </div>
+          </div>
+
+          <div class="form-group">
+            <label>Fotos</label>
+            <small>Adjuntar evidencia fotográfica sobre el incidente</small>
+
+            <div class="upload-box">
+              <input
+                id="foto"
+                name="foto"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                multiple
+                hidden
+              />
+
+              <button
+                type="button"
+                class="add-photo-button"
+                id="addPhotoButton"
+              >
+                <img src="../assets/icons/camera.png" alt="" />
+                AÑADIR
+              </button>
+
+              <div class="photo-list" id="photoList"></div>
+            </div>
+            <span class="error-message"></span>
           </div>
 
           <div class="report-actions">

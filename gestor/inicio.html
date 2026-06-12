@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Civix | Panel de gestión</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/manager.css" />
+  </head>
+
+  <body>
+    <header class="top-header">
+      <a class="brand" href="inicio.html">
+        <img src="../assets/logo/civix.png" alt="Civix" class="brand-logo" />
+        <span class="brand-name">Civix</span>
+      </a>
+
+      <button class="profile-button" aria-label="Abrir perfil de usuario">
+        <span></span>
+      </button>
+    </header>
+
+    <nav class="main-nav">
+      <a class="nav-link active" href="inicio.html">Inicio</a>
+      <a class="nav-link" href="mapa.html">Mapa de incidencias</a>
+      <a class="nav-link" href="metricas.html">Métricas</a>
+      <a class="help-button" href="#">Ayuda & Tutorial</a>
+    </nav>
+
+    <main>
+      <section class="manager-hero">
+        <div>
+          <span class="eyebrow">Panel de gestión urbana</span>
+          <h1>Observatorio de incidencias municipales</h1>
+          <p>
+            Analiza concentración territorial, evolución de reportes y desempeño
+            de atención para tomar mejores decisiones operativas.
+          </p>
+        </div>
+
+        <a class="primary-action" href="mapa.html">Ver mapa urbano</a>
+      </section>
+
+      <section class="kpi-grid">
+        <article class="kpi-card">
+          <span class="kpi-label">Incidencias totales</span>
+          <strong id="managerTotalIncidents">0</strong>
+          <p>Reportes registrados en la plataforma.</p>
+        </article>
+
+        <article class="kpi-card">
+          <span class="kpi-label">Alta prioridad</span>
+          <strong id="managerHighPriority">0</strong>
+          <p>Casos que requieren atención inmediata.</p>
+        </article>
+
+        <article class="kpi-card">
+          <span class="kpi-label">Tasa de resolución</span>
+          <strong id="managerResolutionRate">0%</strong>
+          <p>Porcentaje de incidencias cerradas.</p>
+        </article>
+
+        <article class="kpi-card">
+          <span class="kpi-label">Zonas críticas</span>
+          <strong id="managerCriticalZones">0</strong>
+          <p>Puntos con mayor concentración de reportes.</p>
+        </article>
+      </section>
+
+      <section class="manager-layout">
+        <article class="panel-card map-preview-card">
+          <div class="section-heading">
+            <h2>Mapa territorial</h2>
+            <p>Vista resumida de incidencias georreferenciadas.</p>
+          </div>
+
+          <div class="map-preview">
+            <div class="map-preview-grid"></div>
+
+            <span class="map-pin pin-one"></span>
+            <span class="map-pin pin-two"></span>
+            <span class="map-pin pin-three"></span>
+            <span class="map-pin pin-four"></span>
+
+            <div class="map-preview-info">
+              <strong id="managerMappedIncidents">0</strong>
+              <span>reportes con coordenadas</span>
+            </div>
+          </div>
+
+          <a class="secondary-action" href="mapa.html">Abrir mapa completo</a>
+        </article>
+
+        <article class="panel-card">
+          <div class="section-heading">
+            <h2>Categorías más reportadas</h2>
+            <p>Distribución actual de incidencias por tipo.</p>
+          </div>
+
+          <div class="chart-list" id="managerCategoryChart"></div>
+        </article>
+      </section>
+
+      <section class="manager-layout">
+        <article class="panel-card">
+          <div class="section-heading">
+            <h2>Desempeño por estado</h2>
+            <p>Lectura rápida del flujo de atención municipal.</p>
+          </div>
+
+          <div class="status-grid">
+            <div>
+              <span>Pendientes</span>
+              <strong id="managerPending">0</strong>
+            </div>
+
+            <div>
+              <span>Procesando</span>
+              <strong id="managerProcessing">0</strong>
+            </div>
+
+            <div>
+              <span>Derivadas</span>
+              <strong id="managerDerived">0</strong>
+            </div>
+
+            <div>
+              <span>Resueltas</span>
+              <strong id="managerResolved">0</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel-card">
+          <div class="section-heading">
+            <h2>Áreas con mayor carga</h2>
+            <p>Unidades municipales con más reportes asignados.</p>
+          </div>
+
+          <div class="area-ranking" id="managerAreaRanking"></div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <h3>Atención al ciudadano</h3>
+        <p>01-2134100</p>
+      </div>
+
+      <div>
+        <h3>Horario de atención</h3>
+        <p>
+          De lunes a viernes: 6:00 a.m. - 6:00 p.m. | Feriados: 8:00 a.m. -
+          12:00 p.m.
+        </p>
+      </div>
+
+      <div>
+        <h3>Síguenos</h3>
+        <div class="social-links">
+          <span>f</span>
+          <span>◎</span>
+          <span>☘</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/incidenciasStore.js"></script>
+    <script src="../js/gestorDashboard.js"></script>
+  </body>
+</html>

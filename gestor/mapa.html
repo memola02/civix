@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Civix | Mapa de incidencias</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/manager.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+  </head>
+
+  <body>
+    <header class="top-header">
+      <a class="brand" href="inicio.html">
+        <img src="../assets/logo/civix.png" alt="Civix" class="brand-logo" />
+        <span class="brand-name">Civix</span>
+      </a>
+
+      <button class="profile-button" aria-label="Abrir perfil de usuario">
+        <span></span>
+      </button>
+    </header>
+
+    <nav class="main-nav">
+      <a class="nav-link" href="inicio.html">Inicio</a>
+      <a class="nav-link active" href="mapa.html">Mapa de incidencias</a>
+      <a class="nav-link" href="metricas.html">Métricas</a>
+      <a class="help-button" href="#">Ayuda & Tutorial</a>
+    </nav>
+
+    <main>
+      <section class="manager-hero map-hero">
+        <div>
+          <span class="eyebrow">Mapa territorial</span>
+          <h1>Monitoreo geográfico de incidencias</h1>
+          <p>
+            Visualiza reportes ciudadanos por ubicación, categoría, estado y
+            prioridad para detectar zonas críticas.
+          </p>
+        </div>
+      </section>
+
+      <section class="map-dashboard">
+        <aside class="map-sidebar">
+          <div class="section-heading">
+            <h2>Filtros</h2>
+            <p>Refina los reportes visibles en el mapa.</p>
+          </div>
+
+          <div class="filter-group">
+            <label for="mapCategoryFilter">Categoría</label>
+            <select id="mapCategoryFilter">
+              <option value="">Todas</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="mapStatusFilter">Estado</label>
+            <select id="mapStatusFilter">
+              <option value="">Todos</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Procesando">Procesando</option>
+              <option value="Derivado">Derivado</option>
+              <option value="Resuelto">Resuelto</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="mapPriorityFilter">Prioridad</label>
+            <select id="mapPriorityFilter">
+              <option value="">Todas</option>
+              <option value="Alta">Alta</option>
+              <option value="Media">Media</option>
+              <option value="Baja">Baja</option>
+            </select>
+          </div>
+
+          <button class="secondary-action map-reset" id="resetMapFilters">
+            Limpiar filtros
+          </button>
+
+          <div class="map-stats">
+            <article>
+              <span>Visibles</span>
+              <strong id="visibleIncidentsCount">0</strong>
+            </article>
+
+            <article>
+              <span>Alta prioridad</span>
+              <strong id="visibleHighPriorityCount">0</strong>
+            </article>
+
+            <article>
+              <span>Pendientes</span>
+              <strong id="visiblePendingCount">0</strong>
+            </article>
+          </div>
+        </aside>
+
+        <section class="map-panel">
+          <div id="managerMap"></div>
+        </section>
+      </section>
+
+      <section class="panel-card map-results-card">
+        <div class="section-heading">
+          <h2>Incidencias visibles</h2>
+          <p>Listado de reportes que coinciden con los filtros actuales.</p>
+        </div>
+
+        <div class="map-results-list" id="mapResultsList"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <h3>Atención al ciudadano</h3>
+        <p>01-2134100</p>
+      </div>
+
+      <div>
+        <h3>Horario de atención</h3>
+        <p>
+          De lunes a viernes: 6:00 a.m. - 6:00 p.m. | Feriados: 8:00 a.m. -
+          12:00 p.m.
+        </p>
+      </div>
+
+      <div>
+        <h3>Síguenos</h3>
+        <div class="social-links">
+          <span>f</span>
+          <span>◎</span>
+          <span>☘</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../js/incidenciasStore.js"></script>
+    <script src="../js/gestorMapa.js"></script>
+  </body>
+</html>
