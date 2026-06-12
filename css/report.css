@@ -1,0 +1,401 @@
+/* reportar */
+
+.report-hero {
+  padding: 34px 8%;
+  background: linear-gradient(90deg, #cfd5db, #eef2f6);
+}
+
+.report-hero-content {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.report-hero h1 {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--dark);
+}
+
+.report-hero p {
+  margin: 8px 0 0;
+  font-size: 16px;
+}
+
+.report-layout {
+  display: flex;
+  justify-content: center;
+  padding: 16px 24px 34px;
+  background: #ffffff;
+}
+
+.report-card {
+  width: min(100%, 925px);
+}
+
+.progress-bar {
+  height: 4px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.progress-bar span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: width 0.25s ease;
+}
+
+.report-card h2 {
+  margin: 0 0 8px;
+  font-family: "Manrope", sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.report-card h2.form-section-title {
+  margin-bottom: 24px;
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 2px;
+  font-family: "Manrope", sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.form-group small {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid #9db1c0;
+  border-radius: 7px;
+  background: #f8fafc;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+}
+
+.form-group input,
+.form-group select {
+  height: 28px;
+  padding: 0 10px;
+}
+
+.form-group textarea {
+  height: 98px;
+  padding: 10px;
+  resize: none;
+}
+
+.upload-box {
+  min-height: 154px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #d9d9d9;
+}
+
+.add-photo-button {
+  width: 100%;
+  height: 42px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  font-family: "Manrope", sans-serif;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.add-photo-button img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.photo-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.photo-preview {
+  position: relative;
+  width: 100px;
+  height: 80px;
+  padding: 10px;
+  background: #eeeeee;
+}
+
+.photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-photo {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background: #dc2626;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.photo-preview button {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  border: 0;
+  background: transparent;
+  color: red;
+  font-size: 22px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.map-box {
+  height: 220px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #dbeafe;
+}
+
+.map-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.field-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ai-button,
+.voice-button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 999px;
+  background: #7ed3d1;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.report-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.draft-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.draft-button,
+.primary-button,
+.secondary-button {
+  height: 46px;
+  border-radius: 12px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.draft-button,
+.secondary-button {
+  width: 210px;
+  border: 2px solid var(--secondary);
+  background: white;
+  color: var(--secondary);
+}
+
+.primary-button {
+  width: 320px;
+  border: 0;
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(15, 95, 168, 0.25);
+}
+
+.draft-button:hover,
+.secondary-button:hover {
+  background: rgba(15, 168, 165, 0.08);
+  transform: translateY(-1px);
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(15, 95, 168, 0.35);
+}
+
+.modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.modal-actions .secondary-button,
+.modal-actions .primary-button {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .report-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .report-card {
+    max-width: 740px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .report-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .report-hero h1 {
+    font-size: 30px;
+  }
+
+  .report-layout {
+    padding: 16px;
+  }
+
+  .report-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+.error-message {
+  display: block;
+  min-height: 16px;
+  margin-top: 4px;
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.form-group.has-error input,
+.form-group.has-error select,
+.form-group.has-error textarea {
+  border-color: #dc2626;
+  background: #fff5f5;
+}
+
+.form-group.has-error label {
+  color: #dc2626;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(31, 41, 55, 0.55);
+}
+
+.modal-overlay[hidden] {
+  display: none;
+}
+
+.report-modal {
+  position: relative;
+  width: min(100%, 420px);
+  padding: 32px 28px 24px;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 20px 50px rgba(31, 41, 55, 0.3);
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: 0;
+  background: transparent;
+  color: #6b7280;
+  font-size: 28px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.modal-icon {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: #e6f2fb;
+  display: grid;
+  place-items: center;
+}
+
+.modal-icon img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.report-modal h2 {
+  margin: 0 0 8px;
+  font-family: "Manrope", sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--dark);
+}
+
+.report-modal p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.45;
+}

@@ -201,7 +201,7 @@ function openModal(type) {
     };
   }
 
-  if (type === "error") {
+  else if (type === "error") {
     modalIconImg.src = "../assets/icons/x.png";
     modalTitle.textContent = "No se pudo enviar el reporte";
     modalMessage.textContent =
@@ -226,7 +226,7 @@ function openModal(type) {
     modalSecondary.onclick = closeModal;
   }
 
-  if (type === "draftSaved") {
+  else if (type === "draftSaved") {
     modalIconImg.src = "../assets/icons/check.png";
 
     modalTitle.textContent = "Borrador guardado";
@@ -240,7 +240,7 @@ function openModal(type) {
     modalSecondary.onclick = closeModal;
   }
 
-  if (type === "draftLoaded") {
+  else if (type === "draftLoaded") {
     modalIconImg.src = "../assets/icons/check.png";
 
     modalTitle.textContent = "Borrador cargado";
@@ -254,7 +254,7 @@ function openModal(type) {
     modalSecondary.onclick = closeModal;
   }
 
-  if (type === "draftNotFound") {
+  else if (type === "draftNotFound") {
     modalIconImg.src = "../assets/icons/x.png";
 
     modalTitle.textContent = "No se encontró un borrador";

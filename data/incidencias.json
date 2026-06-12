@@ -1,0 +1,158 @@
+[
+  {
+    "id": "INC-001",
+    "titulo": "Poste apagado en Av. Arequipa",
+    "categoria": "Alumbrado público",
+    "ubicacion": "Av. Arequipa 1200",
+    "fecha": "11/06/2026",
+    "ciudadano": "María Torres",
+    "prioridad": "Alta",
+    "estado": "Pendiente",
+    "area": "Servicios públicos",
+    "descripcion": "Poste de alumbrado público apagado durante varias noches, generando inseguridad en la zona.",
+    "imagen": "../assets/incidencias/incidencia1.jpg",
+    "fechaReporte": "2026-06-11T08:15:00",
+    "historial": [
+      {
+        "fecha": "2026-06-11T08:15:00",
+        "accion": "Reporte creado por el ciudadano."
+      },
+      {
+        "fecha": "2026-06-11T08:42:00",
+        "accion": "Incidencia recibida en bandeja administrativa."
+      }
+    ]
+  },
+
+  {
+    "id": "INC-002",
+    "titulo": "Acumulación de residuos en Parque Kennedy",
+    "categoria": "Acumulación de residuos",
+    "ubicacion": "Parque Kennedy",
+    "fecha": "10/06/2026",
+    "ciudadano": "Carlos Rivas",
+    "prioridad": "Media",
+    "estado": "Procesando",
+    "area": "Limpieza pública",
+    "descripcion": "Acumulación de residuos en una zona de alto tránsito peatonal.",
+    "imagen": "../assets/incidencias/incidencia2.jpg",
+    "fechaReporte": "2026-06-10T14:20:00",
+    "historial": [
+      {
+        "fecha": "2026-06-10T14:20:00",
+        "accion": "Reporte creado por el ciudadano."
+      },
+      {
+        "fecha": "2026-06-10T15:05:00",
+        "accion": "Incidencia recibida en bandeja administrativa."
+      },
+      {
+        "fecha": "2026-06-10T16:10:00",
+        "accion": "Estado actualizado de \"Pendiente\" a \"Procesando\"."
+      }
+    ]
+  },
+
+  {
+    "id": "INC-003",
+    "titulo": "Bache profundo en Av. Primavera",
+    "categoria": "Baches y hundimientos",
+    "ubicacion": "Av. Primavera 450",
+    "fecha": "09/06/2026",
+    "ciudadano": "Lucía Vargas",
+    "prioridad": "Alta",
+    "estado": "Derivado",
+    "area": "Infraestructura vial",
+    "descripcion": "Bache profundo en la vía principal que dificulta el tránsito vehicular.",
+    "imagen": "../assets/incidencias/incidencia3.jpg",
+    "fechaReporte": "2026-06-09T09:10:00",
+    "historial": [
+      {
+        "fecha": "2026-06-09T09:10:00",
+        "accion": "Reporte creado por el ciudadano."
+      },
+      {
+        "fecha": "2026-06-09T10:00:00",
+        "accion": "Incidencia recibida en bandeja administrativa."
+      },
+      {
+        "fecha": "2026-06-09T11:25:00",
+        "accion": "Estado actualizado de \"Pendiente\" a \"Procesando\"."
+      },
+      {
+        "fecha": "2026-06-09T12:40:00",
+        "accion": "Área asignada actualizada de \"Servicios públicos\" a \"Infraestructura vial\"."
+      },
+      {
+        "fecha": "2026-06-09T12:41:00",
+        "accion": "Estado actualizado de \"Procesando\" a \"Derivado\"."
+      }
+    ]
+  },
+
+  {
+    "id": "INC-004",
+    "titulo": "Árbol con ramas secas cerca de zona peatonal",
+    "categoria": "Poda de árboles",
+    "ubicacion": "Av. Javier Prado 890",
+    "fecha": "08/06/2026",
+    "ciudadano": "Diego Salazar",
+    "prioridad": "Baja",
+    "estado": "Resuelto",
+    "area": "Áreas verdes",
+    "descripcion": "Árbol con ramas secas cerca de zona peatonal.",
+    "imagen": "../assets/incidencias/incidencia4.jpg",
+    "fechaReporte": "2026-06-08T07:45:00",
+    "historial": [
+      {
+        "fecha": "2026-06-08T07:45:00",
+        "accion": "Reporte creado por el ciudadano."
+      },
+      {
+        "fecha": "2026-06-08T08:20:00",
+        "accion": "Incidencia recibida en bandeja administrativa."
+      },
+      {
+        "fecha": "2026-06-08T09:10:00",
+        "accion": "Estado actualizado de \"Pendiente\" a \"Procesando\"."
+      },
+      {
+        "fecha": "2026-06-08T15:40:00",
+        "accion": "Equipo municipal realizó intervención en la zona."
+      },
+      {
+        "fecha": "2026-06-08T17:10:00",
+        "accion": "Estado actualizado de \"Procesando\" a \"Resuelto\"."
+      }
+    ]
+  },
+
+  {
+    "id": "INC-005",
+    "titulo": "Semáforo intermitente en cruce peligroso",
+    "categoria": "Alumbrado público",
+    "ubicacion": "Av. Benavides con República de Panamá",
+    "fecha": "11/06/2026",
+    "ciudadano": "Ana Fernández",
+    "prioridad": "Alta",
+    "estado": "Procesando",
+    "area": "Servicios públicos",
+    "descripcion": "El semáforo cambia de forma irregular y genera congestión vehicular.",
+    "imagen": "../assets/incidencias/incidencia5.jpg",
+    "fechaReporte": "2026-06-11T06:50:00",
+    "historial": [
+      {
+        "fecha": "2026-06-11T06:50:00",
+        "accion": "Reporte creado por el ciudadano."
+      },
+      {
+        "fecha": "2026-06-11T07:20:00",
+        "accion": "Incidencia recibida en bandeja administrativa."
+      },
+      {
+        "fecha": "2026-06-11T08:30:00",
+        "accion": "Estado actualizado de \"Pendiente\" a \"Procesando\"."
+      }
+    ]
+  }
+]
