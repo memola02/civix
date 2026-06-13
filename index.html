@@ -1,13 +1,177 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
-	<a href="../ciudadano/inicio.html">Vista ciudadano</a>
-	<a href="../administrativo/inicio.html">Vista administrativo</a>
-	<a href="../gestor/inicio.html">Vista gestor</a>
-</body>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Civix | Plataforma de gestión ciudadana</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/landing.css" />
+  </head>
+
+  <body>
+    <header class="landing-header">
+      <a href="index.html" class="brand">
+        <img src="assets/logo/civix.png" alt="Civix" />
+        <span>Civix</span>
+      </a>
+
+      <nav class="header-nav">
+        <a href="#proyecto">Proyecto</a>
+        <a href="#sprint">Sprint</a>
+        <a href="#perfiles">Perfiles</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <span class="eyebrow">Plataforma cívica digital</span>
+          <h1>Reporta, gestiona y da seguimiento a incidencias urbanas.</h1>
+          <p>
+            Civix conecta a ciudadanos, administradores municipales y gestores
+            operativos en un flujo digital para registrar incidencias, priorizarlas,
+            atenderlas y mantener trazabilidad del proceso.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#perfiles" class="btn primary">Ingresar a la plataforma</a>
+            <a href="#proyecto" class="btn secondary">Conocer el proyecto</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <h3>Flujo principal</h3>
+
+          <div class="flow-item">
+            <span>01</span>
+            <p>Ciudadano reporta una incidencia con ubicación, imagen y descripción.</p>
+          </div>
+
+          <div class="flow-item">
+            <span>02</span>
+            <p>Administración revisa, clasifica y asigna prioridad al caso.</p>
+          </div>
+
+          <div class="flow-item">
+            <span>03</span>
+            <p>Gestor atiende la incidencia y actualiza el estado del servicio.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="proyecto" class="section">
+        <div class="section-heading">
+          <span class="eyebrow">Sobre el proyecto</span>
+          <h2>¿Qué es Civix?</h2>
+          <p>
+            Civix es una solución web orientada a mejorar la comunicación entre
+            ciudadanos y entidades responsables de atender problemas urbanos como
+            alumbrado público, limpieza, seguridad vial, áreas verdes y daños en la
+            infraestructura pública.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <h3>Registro ciudadano</h3>
+            <p>
+              Permite reportar incidencias de forma rápida, adjuntando información
+              clave para facilitar su evaluación.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>Gestión administrativa</h3>
+            <p>
+              Centraliza los reportes recibidos, permite revisar detalles, asignar
+              prioridad y derivar casos.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <h3>Atención operativa</h3>
+            <p>
+              Facilita que los gestores visualicen tareas asignadas y actualicen el
+              avance de cada incidencia.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="sprint" class="section sprint-section">
+        <div class="section-heading">
+          <span class="eyebrow">Alcance del sprint</span>
+          <h2>Funcionalidades implementadas</h2>
+          <p>
+            En este sprint se desarrolló un prototipo funcional enfocado en los
+            flujos principales de interacción para los tres perfiles del sistema.
+          </p>
+        </div>
+
+        <div class="sprint-list">
+          <div>
+            <strong>Ciudadano</strong>
+            <p>Inicio, guía de uso, reporte de incidencias y seguimiento de reportes.</p>
+          </div>
+
+          <div>
+            <strong>Administrador</strong>
+            <p>Bandeja de incidencias, revisión de reportes, historial y cambio de estados.</p>
+          </div>
+
+          <div>
+            <strong>Gestor</strong>
+            <p>Visualización de tareas asignadas, detalle de incidencia y actualización operativa.</p>
+          </div>
+
+          <div>
+            <strong>Datos simulados</strong>
+            <p>Uso de JSON y localStorage para representar persistencia básica del prototipo.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="perfiles" class="section">
+        <div class="section-heading">
+          <span class="eyebrow">Accesos rápidos</span>
+          <h2>Selecciona un perfil de usuario</h2>
+          <p>
+            Cada perfil representa una experiencia distinta dentro del ecosistema Civix.
+          </p>
+        </div>
+
+        <div class="profiles-grid">
+          <a href="ciudadano/inicio.html" class="profile-card">
+            <span class="profile-icon">👤</span>
+            <h3>Ciudadano</h3>
+            <p>Reporta incidencias y consulta el estado de tus solicitudes.</p>
+          </a>
+
+          <a href="administrativo/inicio.html" class="profile-card">
+            <span class="profile-icon">🗂️</span>
+            <h3>Administrador</h3>
+            <p>Revisa reportes, clasifica incidencias y gestiona su atención.</p>
+          </a>
+
+          <a href="gestor/inicio.html" class="profile-card">
+            <span class="profile-icon">🛠️</span>
+            <h3>Gestor</h3>
+            <p>Consulta tareas asignadas y actualiza el avance de atención.</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="landing-footer">
+      <p>Civix — Prototipo web para gestión de incidencias urbanas.</p>
+      <span>Proyecto académico · Sprint actual</span>
+    </footer>
+  </body>
 </html>
