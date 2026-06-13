@@ -332,6 +332,7 @@ function openModal(type) {
 function saveDraft() {
   const draft = {
     categoria: fields.categoria.element.value,
+    titulo: fields.titulo.element.value,
     descripcion: fields.descripcion.element.value,
     ubicacion: fields.ubicacion.element.value,
     fechaGuardado: new Date().toLocaleString(),
@@ -352,6 +353,7 @@ function loadDraft() {
 
   const data = JSON.parse(draft);
 
+  fields.titulo.element.value = data.titulo || "";
   fields.categoria.element.value = data.categoria || "";
   fields.descripcion.element.value = data.descripcion || "";
   fields.ubicacion.element.value = data.ubicacion || "";
