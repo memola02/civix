@@ -13,6 +13,7 @@
     />
 
     <link rel="stylesheet" href="../css/administrativo.css" />
+    <script src="administrativo.js"></script>
   </head>
 
   <body>
@@ -123,72 +124,100 @@
       </section>
     </main>
 
-    <div class="modal-overlay hidden">
-      <div class="incident-modal">
-        <div class="modal-header">
-          <div>
-            <span class="eyebrow">Detalle de incidencia</span>
-            <h2 id="modalTitle">Incidencia</h2>
-          </div>
+<div class="modal-overlay hidden">
+  <div class="incident-modal">
+    <div class="modal-header">
+      <div>
+        <span class="eyebrow">Detalle de incidencia</span>
+        <h2 id="modalTitle">Incidencia</h2>
+      </div>
+      <button class="modal-close" type="button">×</button>
+    </div>
 
-          <button class="modal-close" type="button">×</button>
-        </div>
+    <div class="modal-content">
+      <div class="incident-preview">
+        <img id="modalImage" src="" alt="Evidencia de incidencia">
+      </div>
 
-        <div class="modal-content">
-          <div class="incident-preview">
-            <img
-              id="modalImage"
-              src="../assets/incidencias/incidencia1.jpg"
-              alt="Evidencia de incidencia"
-            />
-          </div>
-
-          <div class="incident-info">
-            <p>
-              <strong>Título:</strong> <span id="modalIncidentTitle"></span>
-            </p>
-            <p><strong>Categoría:</strong> <span id="modalCategory"></span></p>
-            <p><strong>Área asignada:</strong> <span id="modalAreaAssigned"></span></p>
-            <p><strong>Ubicación:</strong> <span id="modalLocation"></span></p>
-            <p><strong>Fecha:</strong> <span id="modalDate"></span></p>
-            <p><strong>Ciudadano:</strong> <span id="modalCitizen"></span></p>
-            <p>
-              <strong>Descripción:</strong> <span id="modalDescription"></span>
-            </p>
-          </div>
-        </div>
-
-        <div class="admin-actions">
-          <div>
-            <label>Estado</label>
-            <select id="modalStatus">
-              <option>Pendiente</option>
-              <option>Procesando</option>
-              <option>Derivado</option>
-              <option>Resuelto</option>
-            </select>
-          </div>
-
-          <div>
-            <label>Derivar a</label>
-            <select id="modalArea">
-              <option>Servicios públicos</option>
-              <option>Limpieza pública</option>
-              <option>Seguridad ciudadana</option>
-              <option>Infraestructura vial</option>
-              <option>Áreas verdes</option>
-            </select>
-          </div>
-
-          <button id="saveChangesButton" type="button">Guardar cambios</button>
-        </div>
-
-        <div class="history-panel">
-          <h3>Historial</h3>
-          <div id="historyList"></div>
-        </div>
+      <div class="incident-info">
+        <p><strong>Título:</strong> <span id="modalIncidentTitle"></span></p>
+        <p><strong>Categoría:</strong> <span id="modalCategory"></span></p>
+        <p><strong>Área asignada:</strong> <span id="modalAreaAssigned"></span></p>
+        <p><strong>Ubicación:</strong> <span id="modalLocation"></span></p>
+        <p><strong>Fecha:</strong> <span id="modalDate"></span></p>
+        <p><strong>Ciudadano:</strong> <span id="modalCitizen"></span></p>
+        <p><strong>Descripción:</strong> <span id="modalDescription"></span></p>
       </div>
     </div>
+
+    <div class="admin-actions">
+      <div>
+        <label for="modalStatus">Estado</label>
+        <select id="modalStatus">
+          <option>Pendiente</option>
+          <option>Procesando</option>
+          <option>Derivado</option>
+          <option>Resuelto</option>
+        </select>
+      </div>
+
+      <div class="interarea-coordination">
+        <label>Áreas responsables asignadas</label>
+        <div class="checkbox-group-areas">
+          <label><input type="checkbox" name="areaResponsable" value="Servicios públicos"> Servicios públicos</label>
+          <label><input type="checkbox" name="areaResponsable" value="Limpieza pública"> Limpieza pública</label>
+          <label><input type="checkbox" name="areaResponsable" value="Seguridad ciudadana"> Seguridad ciudadana</label>
+          <label><input type="checkbox" name="areaResponsable" value="Infraestructura vial"> Infraestructura vial</label>
+          <label><input type="checkbox" name="areaResponsable" value="Áreas verdes"> Áreas verdes</label>
+        </div>
+      </div>
+
+      <div class="intervention-scheduling">
+        <label for="modalInterventionDate">Fecha estimada de atención</label>
+        <input type="date" id="modalInterventionDate" name="interventionDate">
+      </div>
+
+      <div>
+        <label for="modalArea">Derivar a</label>
+        <select id="modalArea">
+          <option>Servicios públicos</option>
+          <option>Limpieza pública</option>
+          <option>Seguridad ciudadana</option>
+          <option>Infraestructura vial</option>
+          <option>Áreas verdes</option>
+        </select>
+      </div>
+    </div>
+
+    <hr class="modal-divider" />
+
+    <div class="evidence-section">
+      <h3>Evidencia de la Intervención</h3>
+      <p class="section-description">Si la intervención ya fue ejecutada, adjunta los archivos de respaldo aquí.</p>
+      
+      <div class="evidence-upload-container">
+        <div class="file-input-wrapper">
+          <label for="modalEvidenceUpload" class="custom-file-label">Seleccionar archivo...</label>
+          <input type="file" id="modalEvidenceUpload" name="evidenceFile" accept="image/*,application/pdf">
+        </div>
+        <button id="uploadEvidenceButton" type="button" class="secondary-action-btn">Subir evidencia</button>
+      </div>
+      
+      <div id="previewContainer" class="preview-container hidden">
+         <img id="imagePreview" src="" alt="Vista previa de evidencia" class="preview-image">
+         <button type="button" id="removeImageBtn" class="remove-image-btn" title="Eliminar foto">X</button>
+      </div>
+      <small class="file-help">Formatos permitidos: JPG, PNG, PDF.</small>
+    </div>
+
+    <div class="history-panel">
+      <h3>Historial</h3>
+      <div id="historyList"></div>
+    </div>
+
+    <button id="saveChangesButton" type="button" style="width: 100%; margin-top: 20px;">Guardar cambios</button>
+  </div>
+</div>
 
     <footer class="site-footer">
       <div>

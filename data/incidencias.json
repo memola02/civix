@@ -14,7 +14,7 @@
     "estado": "Pendiente",
     "area": "Servicios públicos",
     "descripcion": "Poste de alumbrado público apagado durante varias noches, generando inseguridad en la zona.",
-    "imagen": "../assets/incidencias/incidencia1.jpg",
+    "imagen": "../images/poste.jpg",
     "fechaReporte": "2026-06-11T08:15:00",
     "historial": [
       {
@@ -43,7 +43,7 @@
     "estado": "Procesando",
     "area": "Limpieza pública",
     "descripcion": "Acumulación de residuos en una zona de alto tránsito peatonal.",
-    "imagen": "../assets/incidencias/incidencia2.jpg",
+    "imagen": "../images/basura.jpg",
     "fechaReporte": "2026-06-10T14:20:00",
     "historial": [
       {
@@ -76,7 +76,7 @@
     "estado": "Derivado",
     "area": "Infraestructura vial",
     "descripcion": "Bache profundo en la vía principal que dificulta el tránsito vehicular.",
-    "imagen": "../assets/incidencias/incidencia3.jpg",
+    "imagen": "../images/bache.webp",
     "fechaReporte": "2026-06-09T09:10:00",
     "historial": [
       {
@@ -117,7 +117,7 @@
     "estado": "Resuelto",
     "area": "Áreas verdes",
     "descripcion": "Árbol con ramas secas cerca de zona peatonal.",
-    "imagen": "../assets/incidencias/incidencia4.jpg",
+    "imagen": "../images/arbol.jpg",
     "fechaReporte": "2026-06-08T07:45:00",
     "historial": [
       {
@@ -158,7 +158,7 @@
     "estado": "Procesando",
     "area": "Servicios públicos",
     "descripcion": "El semáforo cambia de forma irregular y genera congestión vehicular.",
-    "imagen": "../assets/incidencias/incidencia5.jpg",
+    "imagen": "../images/semaforo.jpg",
     "fechaReporte": "2026-06-11T06:50:00",
     "historial": [
       {
