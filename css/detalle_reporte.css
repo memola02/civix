@@ -1,0 +1,114 @@
+.contenedor-detalle-reporte {
+  padding: 16px;
+  background-color: #F3F4F6;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: #1F2937; 
+}
+
+.titulo-reporte, .subtitulo-detalle {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.titulo-reporte {
+  font-size: 24px; 
+  text-align: center;
+}
+
+.cabecera-estado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.indicador-estado {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.indicador-estado.borrador { background-color: #E5E7EB; color: #4B5563; }
+.indicador-estado.registrada { background-color: #DBEAFE; color: #1D4ED8; }
+.indicador-estado.en-proceso { background-color: #0F5FA8; color: #FFFFFF; } 
+.indicador-estado.solucionada { background-color: #0FA8A5; color: #FFFFFF; } 
+
+.fecha-actualizacion {
+  font-size: 14px; 
+  color: #6B7280;
+}
+
+.tarjeta-detalle {
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.subtitulo-detalle {
+  font-size: 16px; 
+  border-bottom: 1px solid #E5E7EB;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.grupo-dato {
+  margin-bottom: 16px;
+}
+
+.etiqueta-dato {
+  font-weight: 600;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.valor-dato {
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.mapa-contenedor {
+  width: 100%;
+  height: 150px;
+  background-color: #E5E7EB;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #6B7280;
+}
+
+.galeria-evidencia {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.imagen-evidencia {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #E5E7EB;
+}
+
+@media (min-width: 768px) {
+  .informacion-reporte {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .tarjeta-detalle {
+    margin-bottom: 0;
+  }
+}
+ 
