@@ -1,0 +1,19 @@
+<section class="tarjeta-confirmacion-resolucion">
+  <div class="cabecera-confirmacion">
+    <h2 class="titulo-confirmacion">Verificación de Resolución</h2>
+    <p class="texto-confirmacion">La municipalidad ha marcado este reporte como <strong>Solucionado</strong>. ¿Confirmas que la incidencia ha sido atendida correctamente?</p>
+  </div>
+
+  <form class="acciones-confirmacion" action="/api/incidencias/confirmar-cierre" method="POST">
+    <!-- Input oculto para enviar el ID de la incidencia al backend -->
+    <input type="hidden" name="id_incidencia" value="INC-2024-002">
+    
+    <button type="submit" class="boton-primario confirmar">
+      Sí, confirmar resolución
+    </button>
+    
+    <button type="button" class="boton-secundario rechazar">
+      No, el problema persiste
+    </button>
+  </form>
+</section>
