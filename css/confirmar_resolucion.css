@@ -1,0 +1,86 @@
+.tarjeta-confirmacion-resolucion {
+  background-color: #FFFFFF;
+  /* Se utiliza el color secundario de Civix para destacar el estado "Solucionado" */
+  border: 2px solid #0FA8A5; 
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 24px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 6px rgba(15, 168, 165, 0.1); 
+}
+
+.cabecera-confirmacion {
+  margin-bottom: 24px;
+}
+
+.titulo-confirmacion {
+  font-family: 'Manrope', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1F2937; /* Neutral Dark */
+  margin: 0 0 8px 0;
+}
+
+.texto-confirmacion {
+  font-size: 14px;
+  color: #4B5563;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.texto-confirmacion strong {
+  color: #0FA8A5; 
+}
+
+/* Contenedor de acciones (Botones) */
+.acciones-confirmacion {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.boton-primario, .boton-secundario {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.boton-primario.confirmar {
+  background-color: #0F5FA8; 
+  color: #FFFFFF;
+  border: none;
+}
+
+.boton-primario.confirmar:hover {
+  background-color: #0C4D8A; 
+}
+
+.boton-secundario.rechazar {
+  background-color: transparent;
+  color: #1F2937;
+  border: 1px solid #1F2937;
+}
+
+.boton-secundario.rechazar:hover {
+  background-color: #F3F4F6; 
+}
+
+@media (min-width: 768px) {
+  .acciones-confirmacion {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .boton-primario, .boton-secundario {
+    width: auto;
+  }
+}
+
+
