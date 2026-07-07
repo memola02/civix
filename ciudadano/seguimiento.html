@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seguimiento de Reporte - Civix</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="ciudadano.css"> 
+  <link rel="stylesheet" href="estado_reporte.css">
+  <link rel="stylesheet" href="historial_atencion.css">
+  <link rel="stylesheet" href="plazo_estimado.css">
+  <link rel="stylesheet" href="confirmar_resolucion.css">
+</head>
+<body style="margin: 0; background-color: #F3F4F6;">
+
+  <div class="layout-principal" style="display: flex; min-height: 100vh;">
+    
+    <aside class="sidebar" style="width: 250px; background-color: #FFFFFF; border-right: 1px solid #E5E7EB; padding: 24px;">
+       <p style="color: #6B7280; font-family: 'Inter', sans-serif; font-size: 14px;">[Aquí va el menú lateral de Civix]</p>
+    </aside>
+
+    <main class="contenedor-detalle-reporte" style="flex-grow: 1; padding: 24px; max-width: 800px; margin: 0 auto;">
+      
+      <header class="cabecera-estado">
+        <h1 class="titulo-reporte">Seguimiento de Reporte #INC-2024-002</h1>
+        <div class="indicador-estado en-proceso">
+          <span class="etiqueta-estado">En proceso</span>
+        </div>
+        <p class="fecha-actualizacion">Última actualización: 14/06/2026</p>
+      </header>
+
+      <section class="tarjeta-plazo-estimado" aria-label="Plazo estimado de atención">
+        <div class="icono-plazo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F5FA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div class="contenido-plazo">
+          <h2 class="titulo-plazo">Tiempo estimado de resolución</h2>
+          <p class="valor-plazo">7 a 10 días hábiles</p>
+          <div class="alerta-actualizacion">
+            <span class="etiqueta-actualizacion">Actualizado</span>
+            <p class="texto-actualizacion">El plazo se recalculó tras la derivación al Área de Mantenimiento Vial.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="informacion-reporte">
+        <article class="tarjeta-detalle">
+          <h2 class="subtitulo-detalle">Datos del hecho</h2>
+          <div class="grupo-dato">
+            <span class="etiqueta-dato">Categoría:</span>
+            <p class="valor-dato">Infraestructura Pública</p>
+          </div>
+          <div class="grupo-dato">
+            <span class="etiqueta-dato">Descripción:</span>
+            <p class="valor-dato">Bache profundo en la vía principal que dificulta el tránsito vehicular.</p>
+          </div>
+        </article>
+
+        <article class="tarjeta-detalle">
+          <h2 class="subtitulo-detalle">Ubicación y Evidencia</h2>
+          <div class="mapa-contenedor">
+            <div class="mapa-placeholder">Mapa: Av. Principal 123</div>
+          </div>
+          <div class="galeria-evidencia">
+            <img src="ruta-imagen.jpg" alt="Evidencia fotográfica" class="imagen-evidencia">
+          </div>
+        </article>
+      </section>
+
+      <section class="tarjeta-historial">
+        <h2 class="titulo-historial">Historial de Atención</h2>
+        <ul class="linea-tiempo">
+          <li class="evento-historial">
+            <div class="marcador-tiempo"></div>
+            <div class="contenido-evento">
+              <time class="fecha-evento" datetime="2026-06-14T10:30">14 Jun 2026, 10:30 a.m.</time>
+              <p class="accion-evento">El reporte cambió de estado a <strong>En proceso</strong>.</p>
+              <span class="responsable-evento">Responsable: Área de Mantenimiento Vial</span>
+            </div>
+          </li>
+          <li class="evento-historial">
+            <div class="marcador-tiempo"></div>
+            <div class="contenido-evento">
+              <time class="fecha-evento" datetime="2026-06-12T15:45">12 Jun 2026, 03:45 p.m.</time>
+              <p class="accion-evento">La incidencia fue <strong>derivada</strong> al área correspondiente.</p>
+              <span class="responsable-evento">Responsable: Mesa de Partes (Administrativo)</span>
+            </div>
+          </li>
+          <li class="evento-historial">
+            <div class="marcador-tiempo"></div>
+            <div class="contenido-evento">
+              <time class="fecha-evento" datetime="2026-06-10T09:15">10 Jun 2026, 09:15 a.m.</time>
+              <p class="accion-evento">Incidencia <strong>registrada</strong> en el sistema de Civix.</p>
+              <span class="responsable-evento">Responsable: Ciudadano</span>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="tarjeta-confirmacion-resolucion">
+        <div class="cabecera-confirmacion">
+          <h2 class="titulo-confirmacion">Verificación de Resolución</h2>
+          <p class="texto-confirmacion">La municipalidad ha marcado este reporte como <strong>Solucionado</strong>. ¿Confirmas que la incidencia ha sido atendida correctamente?</p>
+        </div>
+        <form class="acciones-confirmacion" action="#" method="POST">
+          <input type="hidden" name="id_incidencia" value="INC-2024-002">
+          <button type="submit" class="boton-primario confirmar">Sí, confirmar resolución</button>
+          <button type="button" class="boton-secundario rechazar">No, el problema persiste</button>
+        </form>
+      </section>
+
+    </main>
+
+  </div>
+
+</body>
+</html>
+
