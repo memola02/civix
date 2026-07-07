@@ -1,33 +1,53 @@
-
-<section class="tarjeta-historial">
-  <h2 class="titulo-historial">Historial de Atención</h2>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>US23 - Detalle del Reporte | Civix</title>
   
-  <ul class="linea-tiempo">
-    <li class="evento-historial">
-      <div class="marcador-tiempo"></div>
-      <div class="contenido-evento">
-        <time class="fecha-evento" datetime="2026-06-14T10:30">14 Jun 2026, 10:30 a.m.</time>
-        <p class="accion-evento">El reporte cambió de estado a <strong>En proceso</strong>.</p>
-        <span class="responsable-evento">Responsable: Área de Mantenimiento Vial</span>
-      </div>
-    </li>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="ciudadano.css">
+  <link rel="stylesheet" href="historial_atencion.css">
+</head>
+<body>
 
-    <li class="evento-historial">
-      <div class="marcador-tiempo"></div>
-      <div class="contenido-evento">
-        <time class="fecha-evento" datetime="2026-06-12T15:45">12 Jun 2026, 03:45 p.m.</time>
-        <p class="accion-evento">La incidencia fue <strong>derivada</strong> al área correspondiente.</p>
-        <span class="responsable-evento">Responsable: Mesa de Partes (Administrativo)</span>
+  <main class="contenedor-detalle-reporte">
+    <header class="cabecera-estado">
+      <h1 class="titulo-reporte">Detalle del Reporte</h1>
+      <div class="indicador-estado en-proceso">
+        <span class="etiqueta-estado">En proceso</span>
       </div>
-    </li>
+      <p class="fecha-actualizacion">Última actualización: 14/06/2026</p>
+    </header>
 
-    <li class="evento-historial">
-      <div class="marcador-tiempo"></div>
-      <div class="contenido-evento">
-        <time class="fecha-evento" datetime="2026-06-10T09:15">10 Jun 2026, 09:15 a.m.</time>
-        <p class="accion-evento">Incidencia <strong>registrada</strong> en el sistema de Civix.</p>
-        <span class="responsable-evento">Responsable: Ciudadano</span>
-      </div>
-    </li>
-  </ul>
-</section>
+    <section class="informacion-reporte">
+      <article class="tarjeta-detalle">
+        <h2 class="subtitulo-detalle">Datos del hecho</h2>
+        <div class="grupo-dato">
+          <span class="etiqueta-dato">Categoría:</span>
+          <p class="valor-dato">Infraestructura Pública</p>
+        </div>
+        <div class="grupo-dato">
+          <span class="etiqueta-dato">Descripción:</span>
+          <p class="valor-dato">Bache profundo en la vía principal que dificulta el tránsito vehicular.</p>
+        </div>
+      </article>
+
+      <article class="tarjeta-detalle">
+        <h2 class="subtitulo-detalle">Ubicación y Evidencia</h2>
+        <div class="mapa-contenedor">
+          <div class="mapa-placeholder">Mapa: Av. Principal 123</div>
+        </div>
+        <div class="galeria-evidencia">
+          <img src="tu-imagen-de-prueba.jpg" alt="Evidencia fotográfica" class="imagen-evidencia">
+        </div>
+      </article>
+    </section>
+  </main>
+
+</body>
+</html>
+
