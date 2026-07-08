@@ -27,6 +27,11 @@ const modalDescription = document.getElementById("modalDescription");
 const modalStatus = document.getElementById("modalStatus");
 const modalArea = document.getElementById("modalArea");
 const historyList = document.getElementById("historyList");
+const historyTotalEvents = document.getElementById("historyTotalEvents");
+const historyCreatedAt = document.getElementById("historyCreatedAt");
+const historyLastUpdate = document.getElementById("historyLastUpdate");
+const historyCurrentStatus = document.getElementById("historyCurrentStatus");
+const historyCurrentArea = document.getElementById("historyCurrentArea");
 const saveChangesButton = document.getElementById("saveChangesButton");
 
 async function cargarIncidencias() {
@@ -154,28 +159,104 @@ function abrirModal(id) {
   modalStatus.value = incidenciaSeleccionada.estado;
   modalArea.value = incidenciaSeleccionada.area;
 
-  renderizarHistorial(incidenciaSeleccionada.historial);
+  renderizarHistorialCompleto(incidenciaSeleccionada);
 
   modalOverlay.classList.remove("hidden");
 }
 
-function renderizarHistorial(historial) {
+function renderizarHistorialCompleto(incidencia) {
+  const historial = incidencia.historial || [];
+
   historyList.innerHTML = "";
 
-  historial.forEach((registro) => {
-    const item = document.createElement("div");
+  historyTotalEvents.textContent = `${historial.length} eventos`;
+  historyCreatedAt.textContent =
+    historial.length > 0 ? formatearFecha(historial[0].fecha) : incidencia.fecha;
+  historyLastUpdate.textContent =
+    historial.length > 0
+      ? formatearFecha(historial[historial.length - 1].fecha)
+      : incidencia.fecha;
+  historyCurrentStatus.textContent = incidencia.estado;
+  historyCurrentArea.textContent = incidencia.area;
 
-    item.classList.add("history-item");
+  if (historial.length === 0) {
+    historyList.innerHTML = `
+      <div class="complete-history-empty">
+        Esta incidencia todavía no cuenta con eventos registrados.
+      </div>
+    `;
+    return;
+  }
+
+  const historialOrdenado = [...historial].sort((a, b) => {
+    return new Date(b.fecha) - new Date(a.fecha);
+  });
+
+  historialOrdenado.forEach((registro, index) => {
+    const item = document.createElement("article");
+    item.classList.add("complete-history-item", obtenerClaseEvento(registro.accion));
 
     item.innerHTML = `
-  <span></span>
-  <p>
-    <strong>${formatearFecha(registro.fecha)}</strong><br>
-    ${registro.accion}
-  </p>
-`;
+      <div class="history-timeline-marker">
+        <span>${historialOrdenado.length - index}</span>
+      </div>
+
+      <div class="history-event-content">
+        <div class="history-event-top">
+          <strong>${formatearFecha(registro.fecha)}</strong>
+          <span>${obtenerEtiquetaEvento(registro.accion)}</span>
+        </div>
+
+        <p>${registro.accion}</p>
+      </div>
+    `;
+
     historyList.appendChild(item);
   });
+}
+
+function obtenerClaseEvento(accion) {
+  const texto = accion.toLowerCase();
+
+  if (texto.includes("resuelto") || texto.includes("confirmó")) {
+    return "event-resolved";
+  }
+
+  if (texto.includes("derivada") || texto.includes("área asignada")) {
+    return "event-derived";
+  }
+
+  if (texto.includes("procesando") || texto.includes("intervención")) {
+    return "event-process";
+  }
+
+  if (texto.includes("reabrió")) {
+    return "event-reopened";
+  }
+
+  return "event-created";
+}
+
+function obtenerEtiquetaEvento(accion) {
+  const texto = accion.toLowerCase();
+
+  if (texto.includes("resuelto") || texto.includes("confirmó")) {
+    return "Cierre / resolución";
+  }
+
+  if (texto.includes("derivada") || texto.includes("área asignada")) {
+    return "Derivación";
+  }
+
+  if (texto.includes("procesando") || texto.includes("intervención")) {
+    return "Atención";
+  }
+
+  if (texto.includes("reabrió")) {
+    return "Reapertura";
+  }
+
+  return "Registro";
 }
 
 function formatearFecha(fecha) {
@@ -212,7 +293,7 @@ function guardarCambios() {
 
   guardarIncidencias(incidencias);
   filtrarIncidencias();
-  renderizarHistorial(incidenciaSeleccionada.historial);
+  renderizarHistorialCompleto(incidenciaSeleccionada);
   modalOverlay.classList.add("hidden");
 }
 
