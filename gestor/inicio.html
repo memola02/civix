@@ -73,22 +73,26 @@
           <p>Puntos con mayor concentración de reportes.</p>
         </article>
       </section>
-
-      <section class="panel-card impact-priority-card">
-        <div class="impact-heading">
+      
+      <section class="panel-card early-alerts-card">
+        <div class="early-alerts-heading">
           <div class="section-heading">
-            <span class="analysis-tag">Priorización automática</span>
-            <h2>Incidencias priorizadas según impacto</h2>
+            <span class="analysis-tag">Alertas tempranas</span>
+            <h2>Alertas tempranas sobre incidencias críticas</h2>
             <p>
-              Ordenamiento calculado según prioridad, estado, categoría y
-              urgencia operativa para apoyar la toma de decisiones del gestor.
+              Detección preventiva de reportes que requieren atención rápida
+              por su prioridad, estado o posible impacto en la seguridad
+              ciudadana.
             </p>
           </div>
 
-          <a class="impact-map-link" href="mapa.html">Ver en mapa</a>
+          <div class="alerts-counter">
+            <strong id="managerAlertCount">0</strong>
+            <span>alertas activas</span>
+          </div>
         </div>
 
-        <div class="impact-list" id="managerImpactList"></div>
+        <div class="early-alerts-list" id="managerEarlyAlerts"></div>
       </section>
 
       <section class="manager-layout">
