@@ -10,15 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnRechazar = document.querySelector('.boton-secundario.rechazar');
 
 
-  // Datos extra simulados
-  const datosExtra = {
-    "#INC-005": { desc: "Poste apagado generando total oscuridad e inseguridad.", plazo: "15/06/2026" },
-    "#INC-004": { desc: "Acumulación de basura en la esquina del parque. Atrae insectos.", plazo: "13/06/2026" },
-    "#INC-003": { desc: "Bache profundo en la vía principal. Dificulta el tránsito vehicular.", plazo: "20/06/2026" },
-    "#INC-001": { desc: "Semáforo intermitente causando congestión y riesgo de accidentes.", plazo: "Solucionado el 12/06/2026" }
-  };
-
-
   botonesDetalle.forEach(boton => {
     boton.addEventListener('click', (e) => {
       filaActual = e.target.closest('tr');
@@ -180,3 +171,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if(e.target === modal) cerrarModal();
   });
 });
+
+  const datosExtra = {
+    "#INC-005": { 
+      desc: "Poste apagado generando total oscuridad e inseguridad.", 
+      plazo: "15/06/2026",
+      foto: "civix-main\assets\incidencias\incidencia1.jpg" /* <-- AGREGA TU IMAGEN AQUÍ */
+    },
+    "#INC-004": { 
+      desc: "Acumulación de basura en la esquina del parque. Atrae insectos.", 
+      plazo: "13/06/2026",
+      foto: "civix-main\assets\incidencias\incidencia2.jpg" /* <-- AGREGA TU IMAGEN AQUÍ */
+    },
+    "#INC-003": { 
+      desc: "Bache profundo en la vía principal. Dificulta el tránsito vehicular.", 
+      plazo: "20/06/2026",
+      foto: "../assets/incidencia/incidencia3.jpg" /* <-- AGREGA TU IMAGEN AQUÍ */
+    },
+    "#INC-001": { 
+      desc: "Semáforo intermitente causando congestión y riesgo de accidentes.", 
+      plazo: "Solucionado el 12/06/2026",
+      foto: "../assets/incidencia/incidencia5.jpg" /* <-- AGREGA TU IMAGEN AQUÍ */
+    }
+  };
+
+        if(datosExtra[id]) {
+        document.getElementById('modalDescripcion').textContent = datosExtra[id].desc;
+        document.getElementById('modalPlazo').textContent = datosExtra[id].plazo;
+        
+        // AGREGA ESTA LÍNEA PARA QUE LA IMAGEN CAMBIE SOLA
+        document.getElementById('modalImagen').src = datosExtra[id].foto; 
+      }
