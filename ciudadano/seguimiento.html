@@ -137,8 +137,7 @@
       </div>
     </footer>
 
-
-    <div class="overlay-modal" id="modalDetalle" hidden>
+      <div class="overlay-modal" id="modalDetalle" hidden>
       <div class="tarjeta-modal">
         
         <div class="cabecera-modal">
@@ -154,19 +153,51 @@
         <h2 class="titulo-incidencia-modal" id="modalId">Incidencia #INC-000</h2>
         
         <div class="cuerpo-modal">
-          <div class="contenedor-imagen-modal">
-            <img src="../fotos/placeholder.jpg" alt="Evidencia de la incidencia" id="modalImagen">
-          </div>
           
-          <div class="lista-info-modal">
-            <p><strong>Título:</strong> <span id="modalTitulo">-</span></p>
-            <p><strong>Categoría:</strong> <span id="modalCategoria">-</span></p>
-            <p><strong>Área asignada:</strong> <span id="modalArea">-</span></p>
-            <p><strong>Ubicación:</strong> <span id="modalUbicacion">-</span></p>
-            <p><strong>Fecha de reporte:</strong> <span id="modalFecha">-</span></p>
-            <p class="desc-modal"><strong>Descripción:</strong> <span id="modalDescripcion">Cargando detalles de la incidencia reportada por el ciudadano...</span></p>
+          <!-- PARTE 1: Información Básica (2 columnas) -->
+          <div class="grid-info-modal">
+            <div class="contenedor-imagen-modal">
+              <img src="../fotos/placeholder.jpg" alt="Evidencia de la incidencia" id="modalImagen">
+            </div>
+            
+            <div class="lista-info-modal">
+              <p><strong>Título:</strong> <span id="modalTitulo">-</span></p>
+              <p><strong>Categoría:</strong> <span id="modalCategoria">-</span></p>
+              <p><strong>Área asignada:</strong> <span id="modalArea">-</span></p>
+              <p><strong>Ubicación:</strong> <span id="modalUbicacion">-</span></p>
+              <p><strong>Fecha de reporte:</strong> <span id="modalFecha">-</span></p>
+              <p class="desc-modal"><strong>Descripción:</strong> <span id="modalDescripcion">Cargando detalles...</span></p>
+            </div>
           </div>
-        </div>
+
+
+          <hr class="separador-modal">
+
+
+          <!-- PARTE 2: Historial de Atención (US24) -->
+          <div class="seccion-historial-modal">
+            <h3 class="subtitulo-modal-interno">Historial de Atención</h3>
+            <ul class="linea-tiempo" id="modalLineaTiempo">
+              <!-- Esta lista se llenará automáticamente con JavaScript -->
+            </ul>
+          </div>
+
+
+          <!-- PARTE 3: Confirmación de Resolución (US27) - Oculto por defecto -->
+          <div class="tarjeta-confirmacion-resolucion" id="modalConfirmacion" hidden>
+            <div class="cabecera-confirmacion">
+              <h3 class="subtitulo-modal-interno" style="margin-top:0; margin-bottom: 8px;">Verificación de Resolución</h3>
+              <p class="texto-confirmacion">La municipalidad ha marcado este reporte como <strong>Solucionado</strong>. ¿Confirmas que la incidencia ha sido atendida correctamente?</p>
+            </div>
+            <form class="acciones-confirmacion" action="#" method="POST">
+              <input type="hidden" name="id_incidencia" id="inputConfirmacionId" value="">
+              <button type="submit" class="boton-primario confirmar">Sí, confirmar resolución</button>
+              <button type="button" class="boton-secundario rechazar">No, el problema persiste</button>
+            </form>
+          </div>
+
+
+        </div> <!-- Fin del cuerpo-modal -->
         
         <div class="pie-modal">
           <div class="pie-item">
@@ -182,7 +213,6 @@
 
       </div>
     </div>
-
 
     <script src="../js/seguimiento.js"></script>
   </body>
