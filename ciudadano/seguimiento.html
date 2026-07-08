@@ -8,26 +8,15 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="../css/ciudadano.css" />
-    <link rel="stylesheet" href="../css/reportar.css" />
-    
-    <link rel="stylesheet" href="../css/us23-estilos.css" />
-    <link rel="stylesheet" href="../css/us24-estilos.css" />
-    <link rel="stylesheet" href="../css/us26-estilos.css" />
-    <link rel="stylesheet" href="../css/us27-estilos.css" />
-
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
+    <!-- Agrega este nuevo CSS para la tabla -->
+    <link rel="stylesheet" href="../css/tabla-seguimiento.css" />
   </head>
 
   <body>
+    <!-- CABECERA -->
     <header class="top-header">
       <a class="brand" href="inicio.html">
         <img src="../logo/civix.png" alt="Civix" class="brand-logo" />
@@ -36,6 +25,7 @@
       <button class="profile-button" aria-label="Abrir perfil de usuario"></button>
     </header>
 
+    <!-- NAVEGACIÓN -->
     <nav class="main-nav">
       <a class="nav-link" href="inicio.html">Inicio</a>
       <a class="nav-link" href="reportar.html">Reportar incidencia</a>
@@ -44,116 +34,94 @@
     </nav>
 
     <main>
+      <!-- NUEVO HERO (Acorde a las instrucciones del chat) -->
       <section class="report-hero">
         <div>
-          <span class="eyebrow">Seguimiento</span>
-          <h1>Seguimiento de reporte #INC-2024-002</h1>
+          <span class="eyebrow">Portal Ciudadano</span>
+          <h1>Seguimiento de reportes</h1>
           <p>
-            Revisa el estado, los detalles y el historial de atención de tu incidencia.
+            Revisa la lista de tus incidencias registradas, verifica su estado de atención y accede a los detalles operativos.
           </p>
         </div>
       </section>
 
-      <section class="report-layout">
-        
-        <div style="width: 100%; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+      <!-- SECCIÓN DE LA TABLA -->
+      <section class="report-layout" style="max-width: 1100px;">
+        <div class="tarjeta-tabla">
           
-          <header class="cabecera-estado" style="background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <h2 class="titulo-reporte" style="margin-top: 0;">Estado Actual</h2>
-            <div class="indicador-estado en-proceso">
-              <span class="etiqueta-estado">En proceso</span>
-            </div>
-            <p class="fecha-actualizacion">Última actualización: 14/06/2026</p>
-          </header>
+          <div class="cabecera-tabla">
+            <h2 class="titulo-tabla">Tus incidencias</h2>
+            <span class="contador-reportes">4 reportes encontrados</span>
+          </div>
 
-          <section class="tarjeta-plazo-estimado" aria-label="Plazo estimado de atención">
-            <div class="icono-plazo">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F5FA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-            </div>
-            <div class="contenido-plazo">
-              <h3 class="titulo-plazo">Tiempo estimado de resolución</h3>
-              <p class="valor-plazo">7 a 10 días hábiles</p>
-              <div class="alerta-actualizacion">
-                <span class="etiqueta-actualizacion">Actualizado</span>
-                <p class="texto-actualizacion">El plazo se recalculó tras la derivación al Área de Mantenimiento Vial.</p>
-              </div>
-            </div>
-          </section>
-
-          <section class="informacion-reporte">
-            <article class="tarjeta-detalle">
-              <h3 class="subtitulo-detalle">Datos del hecho</h3>
-              <div class="grupo-dato">
-                <span class="etiqueta-dato">Categoría:</span>
-                <p class="valor-dato">Baches y hundimientos</p>
-              </div>
-              <div class="grupo-dato">
-                <span class="etiqueta-dato">Descripción:</span>
-                <p class="valor-dato">Bache profundo en la vía principal que dificulta el tránsito vehicular.</p>
-              </div>
-            </article>
-
-            <article class="tarjeta-detalle">
-              <h3 class="subtitulo-detalle">Ubicación y Evidencia</h3>
-              <div class="map-box" id="map" style="height: 150px; margin-bottom: 16px;"></div> <div class="galeria-evidencia">
-                <img src="../fotos/ejemplo-bache.jpg" alt="Evidencia fotográfica" class="imagen-evidencia" style="max-width: 100%; border-radius: 8px;">
-              </div>
-            </article>
-          </section>
-
-          <section class="tarjeta-historial">
-            <h3 class="titulo-historial">Historial de Atención</h3>
-            <ul class="linea-tiempo">
-              <li class="evento-historial">
-                <div class="marcador-tiempo"></div>
-                <div class="contenido-evento">
-                  <time class="fecha-evento" datetime="2026-06-14T10:30">14 Jun 2026, 10:30 a.m.</time>
-                  <p class="accion-evento">El reporte cambió de estado a <strong>En proceso</strong>.</p>
-                  <span class="responsable-evento">Responsable: Área de Mantenimiento Vial</span>
-                </div>
-              </li>
-              <li class="evento-historial">
-                <div class="marcador-tiempo"></div>
-                <div class="contenido-evento">
-                  <time class="fecha-evento" datetime="2026-06-12T15:45">12 Jun 2026, 03:45 p.m.</time>
-                  <p class="accion-evento">La incidencia fue <strong>derivada</strong> al área correspondiente.</p>
-                  <span class="responsable-evento">Responsable: Mesa de Partes (Administrativo)</span>
-                </div>
-              </li>
-              <li class="evento-historial">
-                <div class="marcador-tiempo"></div>
-                <div class="contenido-evento">
-                  <time class="fecha-evento" datetime="2026-06-10T09:15">10 Jun 2026, 09:15 a.m.</time>
-                  <p class="accion-evento">Incidencia <strong>registrada</strong> en el sistema de Civix.</p>
-                  <span class="responsable-evento">Responsable: Ciudadano</span>
-                </div>
-              </li>
-            </ul>
-          </section>
-
-          <section class="tarjeta-confirmacion-resolucion">
-            <div class="cabecera-confirmacion">
-              <h3 class="titulo-confirmacion">Verificación de Resolución</h3>
-              <p class="texto-confirmacion">La municipalidad ha marcado este reporte como <strong>Solucionado</strong>. ¿Confirmas que la incidencia ha sido atendida correctamente?</p>
-            </div>
-            <form class="acciones-confirmacion" action="#" method="POST">
-              <input type="hidden" name="id_incidencia" value="INC-2024-002">
-              <button type="submit" class="primary-button confirmar" style="width: 100%; margin-bottom: 8px;">
-                Sí, confirmar resolución
-              </button>
-              <button type="button" class="secondary-button rechazar" style="width: 100%;">
-                No, el problema persiste
-              </button>
-            </form>
-          </section>
+          <div class="contenedor-responsivo">
+            <table class="tabla-civix">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Título</th>
+                  <th>Categoría</th>
+                  <th>Área asignada</th>
+                  <th>Ubicación</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Fila 1 -->
+                <tr>
+                  <td class="td-id">#INC-005</td>
+                  <td>Poste apagado en Av. Arequipa</td>
+                  <td>Alumbrado público</td>
+                  <td>Servicios públicos</td>
+                  <td>Av. Arequipa 1200</td>
+                  <td>11/06/2026</td>
+                  <td><span class="etiqueta-estado-tabla pendiente">Pendiente</span></td>
+                  <td><button class="boton-detalle">Ver detalle</button></td>
+                </tr>
+                <!-- Fila 2 -->
+                <tr>
+                  <td class="td-id">#INC-004</td>
+                  <td>Acumulación de residuos en Parque Kennedy</td>
+                  <td>Acumulación de residuos</td>
+                  <td>Infraestructura vial</td>
+                  <td>Parque Kennedy</td>
+                  <td>10/06/2026</td>
+                  <td><span class="etiqueta-estado-tabla derivado">Derivado</span></td>
+                  <td><button class="boton-detalle">Ver detalle</button></td>
+                </tr>
+                <!-- Fila 3 -->
+                <tr>
+                  <td class="td-id">#INC-003</td>
+                  <td>Bache profundo en Av. Primavera</td>
+                  <td>Baches y hundimientos</td>
+                  <td>Infraestructura vial</td>
+                  <td>Av. Primavera 450</td>
+                  <td>09/06/2026</td>
+                  <td><span class="etiqueta-estado-tabla en-proceso">En proceso</span></td>
+                  <td><button class="boton-detalle">Ver detalle</button></td>
+                </tr>
+                <!-- Fila 4 -->
+                <tr>
+                  <td class="td-id">#INC-001</td>
+                  <td>Semáforo intermitente cruce peligroso</td>
+                  <td>Alumbrado público</td>
+                  <td>Áreas verdes</td>
+                  <td>Av. Benavides con Rep. de Panamá</td>
+                  <td>11/06/2026</td>
+                  <td><span class="etiqueta-estado-tabla solucionado">Solucionado</span></td>
+                  <td><button class="boton-detalle">Ver detalle</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
         </div>
       </section>
     </main>
 
+    <!-- PIE DE PÁGINA -->
     <footer class="site-footer">
       <div>
         <h3>Atención al ciudadano</h3>
@@ -161,9 +129,7 @@
       </div>
       <div>
         <h3>Horario de atención</h3>
-        <p>
-          De lunes a viernes: 6:00 a.m. - 6:00 p.m. | Feriados: 8:00 a.m. - 12:00 p.m.
-        </p>
+        <p>De lunes a viernes: 6:00 a.m. - 6:00 p.m. | Feriados: 8:00 a.m. - 12:00 p.m.</p>
       </div>
       <div>
         <h3>Síguenos</h3>
@@ -174,9 +140,7 @@
         </div>
       </div>
     </footer>
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="../js/seguimiento.js"></script>
   </body>
 </html>
+
 
