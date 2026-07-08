@@ -23,7 +23,32 @@
         <img src="../logo/civix.png" alt="Civix" class="brand-logo" />
         <span class="brand-name">Civix</span>
       </a>
-      <button class="profile-button" aria-label="Abrir perfil de usuario"></button>
+      <div class="header-actions">
+        <div class="notification-wrapper">
+          <button
+            class="notification-button"
+            id="notificationButton"
+            aria-label="Ver notificaciones de actualización"
+          >
+            <span>🔔</span>
+            <strong id="notificationCount">0</strong>
+          </button>
+
+          <div class="notification-panel" id="notificationPanel" hidden>
+            <div class="notification-panel-header">
+              <div>
+                <span class="notification-eyebrow">US25</span>
+                <h3>Notificaciones de actualización</h3>
+              </div>
+              <button class="notification-close" id="notificationClose">×</button>
+            </div>
+
+            <div class="notification-list" id="notificationsList"></div>
+          </div>
+        </div>
+
+        <button class="profile-button" aria-label="Abrir perfil de usuario"></button>
+      </div>
     </header>
 
 
