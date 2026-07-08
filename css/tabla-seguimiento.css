@@ -89,7 +89,7 @@
 .etiqueta-estado-tabla.derivado { background-color: #FEF3C7; color: #D97706; }
 .etiqueta-estado-tabla.en-proceso { background-color: #F3E8FF; color: #7E22CE; }
 .etiqueta-estado-tabla.solucionado { background-color: #D1FAE5; color: #059669; }
-
+.etiqueta-estado-tabla.confirmado { background-color: #DCFCE7; color: #047857; }
 
 .boton-detalle {
   background-color: #0F5FA8; 
