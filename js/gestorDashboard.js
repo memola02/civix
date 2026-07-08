@@ -7,6 +7,8 @@ const managerMappedIncidents = document.getElementById("managerMappedIncidents")
 const managerCategoryChart = document.getElementById("managerCategoryChart");
 const managerAreaRanking = document.getElementById("managerAreaRanking");
 const managerImpactList = document.getElementById("managerImpactList");
+const managerEarlyAlerts = document.getElementById("managerEarlyAlerts");
+const managerAlertCount = document.getElementById("managerAlertCount");
 
 const managerPending = document.getElementById("managerPending");
 const managerProcessing = document.getElementById("managerProcessing");
@@ -21,6 +23,7 @@ async function cargarDashboardGestor() {
   renderizarEstadosGestor(incidencias);
   renderizarAreasGestor(incidencias);
   renderizarPrioridadImpacto(incidencias);
+  renderizarAlertasTempranas(incidencias);
 }
 
 function actualizarKpisGestor(incidencias) {
@@ -322,6 +325,156 @@ function obtenerClaseImpacto(nivel) {
   }
 
   return "impact-low";
+}
+
+function renderizarAlertasTempranas(incidencias) {
+  if (!managerEarlyAlerts || !managerAlertCount) {
+    return;
+  }
+
+  managerEarlyAlerts.innerHTML = "";
+
+  const alertas = incidencias
+    .filter((incidencia) => esIncidenciaCritica(incidencia))
+    .map((incidencia) => {
+      return {
+        ...incidencia,
+        alerta: construirAlertaTemprana(incidencia),
+      };
+    })
+    .sort((a, b) => b.alerta.puntaje - a.alerta.puntaje);
+
+  managerAlertCount.textContent = alertas.length;
+
+  if (alertas.length === 0) {
+    managerEarlyAlerts.innerHTML = `
+      <div class="early-alert-empty">
+        No hay alertas críticas activas en este momento.
+      </div>
+    `;
+    return;
+  }
+
+  alertas.slice(0, 4).forEach((incidencia) => {
+    const article = document.createElement("article");
+    article.classList.add("early-alert-item", incidencia.alerta.clase);
+
+    article.innerHTML = `
+      <div class="alert-icon">!</div>
+
+      <div class="alert-content">
+        <div class="alert-title-row">
+          <div>
+            <span class="alert-code">${incidencia.id}</span>
+            <h3>${incidencia.titulo}</h3>
+          </div>
+
+          <span class="alert-level">${incidencia.alerta.nivel}</span>
+        </div>
+
+        <p>${incidencia.alerta.mensaje}</p>
+
+        <div class="alert-details">
+          <span>${incidencia.ubicacion}</span>
+          <span>${incidencia.estado}</span>
+          <span>${incidencia.prioridad}</span>
+        </div>
+      </div>
+
+      <a class="alert-action" href="mapa.html">Ver mapa</a>
+    `;
+
+    managerEarlyAlerts.appendChild(article);
+  });
+}
+
+function esIncidenciaCritica(incidencia) {
+  if (incidencia.estado === "Resuelto") {
+    return false;
+  }
+
+  if (incidencia.estado === "Confirmado") {
+    return false;
+  }
+
+  if (incidencia.prioridad === "Alta") {
+    return true;
+  }
+
+  if (incidencia.estado === "Reabierto") {
+    return true;
+  }
+
+  if (
+    incidencia.categoria === "Alumbrado público" ||
+    incidencia.categoria === "Baches y hundimientos"
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+function construirAlertaTemprana(incidencia) {
+  let puntaje = 0;
+  const razones = [];
+
+  if (incidencia.prioridad === "Alta") {
+    puntaje += 45;
+    razones.push("alta prioridad");
+  }
+
+  if (incidencia.estado === "Pendiente") {
+    puntaje += 30;
+    razones.push("requiere primera atención");
+  }
+
+  if (incidencia.estado === "Reabierto") {
+    puntaje += 35;
+    razones.push("fue reabierta por el ciudadano");
+  }
+
+  if (incidencia.estado === "Procesando") {
+    puntaje += 18;
+    razones.push("continúa en atención");
+  }
+
+  if (
+    incidencia.categoria === "Alumbrado público" ||
+    incidencia.categoria === "Baches y hundimientos"
+  ) {
+    puntaje += 20;
+    razones.push("puede afectar seguridad o tránsito");
+  }
+
+  if (razones.length === 0) {
+    razones.push("requiere monitoreo preventivo");
+  }
+
+  if (puntaje >= 85) {
+    return {
+      nivel: "Crítica",
+      clase: "alert-critical",
+      puntaje,
+      mensaje: `Atención inmediata: ${razones.join(", ")}.`,
+    };
+  }
+
+  if (puntaje >= 65) {
+    return {
+      nivel: "Alta",
+      clase: "alert-high",
+      puntaje,
+      mensaje: `Revisar pronto: ${razones.join(", ")}.`,
+    };
+  }
+
+  return {
+    nivel: "Preventiva",
+    clase: "alert-medium",
+    puntaje,
+    mensaje: `Monitorear: ${razones.join(", ")}.`,
+  };
 }
 
 function contarPorCampo(lista, campo) {
