@@ -10,6 +10,18 @@ const managerImpactList = document.getElementById("managerImpactList");
 const managerEarlyAlerts = document.getElementById("managerEarlyAlerts");
 const managerAlertCount = document.getElementById("managerAlertCount");
 
+const complianceResolved = document.getElementById("complianceResolved");
+const complianceProcess = document.getElementById("complianceProcess");
+const compliancePending = document.getElementById("compliancePending");
+const complianceCritical = document.getElementById("complianceCritical");
+const openComplianceModal = document.getElementById("openComplianceModal");
+const closeComplianceModal = document.getElementById("closeComplianceModal");
+const complianceModal = document.getElementById("complianceModal");
+const complianceModalGrid = document.getElementById("complianceModalGrid");
+const complianceCaseList = document.getElementById("complianceCaseList");
+const closureValidationList = document.getElementById("closureValidationList");
+const closureValidatedCount = document.getElementById("closureValidatedCount");
+
 const managerPending = document.getElementById("managerPending");
 const managerProcessing = document.getElementById("managerProcessing");
 const managerDerived = document.getElementById("managerDerived");
@@ -24,6 +36,8 @@ async function cargarDashboardGestor() {
   renderizarAreasGestor(incidencias);
   renderizarPrioridadImpacto(incidencias);
   renderizarAlertasTempranas(incidencias);
+  renderizarCumplimientoAtencion(incidencias);
+  renderizarCierreOperativo(incidencias);
 }
 
 function actualizarKpisGestor(incidencias) {
@@ -475,6 +489,244 @@ function construirAlertaTemprana(incidencia) {
     puntaje,
     mensaje: `Monitorear: ${razones.join(", ")}.`,
   };
+}
+
+function renderizarCumplimientoAtencion(incidencias) {
+  if (
+    !complianceResolved ||
+    !complianceProcess ||
+    !compliancePending ||
+    !complianceCritical
+  ) {
+    return;
+  }
+
+  const resumen = calcularCumplimientoAtencion(incidencias);
+
+  complianceResolved.textContent = resumen.atendidas;
+  complianceProcess.textContent = resumen.enProceso;
+  compliancePending.textContent = resumen.pendientes;
+  complianceCritical.textContent = resumen.criticas;
+
+  renderizarModalCumplimiento(resumen);
+  activarModalCumplimiento();
+}
+
+function calcularCumplimientoAtencion(incidencias) {
+  const resumen = {
+    total: incidencias.length,
+    atendidas: 0,
+    enProceso: 0,
+    pendientes: 0,
+    criticas: 0,
+    casosSeguimiento: [],
+  };
+
+  incidencias.forEach((incidencia) => {
+    if (
+      incidencia.estado === "Resuelto" ||
+      incidencia.estado === "Confirmado"
+    ) {
+      resumen.atendidas += 1;
+    } else if (
+      incidencia.estado === "Procesando" ||
+      incidencia.estado === "Derivado"
+    ) {
+      resumen.enProceso += 1;
+    } else {
+      resumen.pendientes += 1;
+    }
+
+    const esCritica =
+      incidencia.prioridad === "Alta" ||
+      incidencia.estado === "Reabierto" ||
+      incidencia.estado === "Pendiente";
+
+    if (esCritica && incidencia.estado !== "Resuelto") {
+      resumen.criticas += 1;
+      resumen.casosSeguimiento.push(incidencia);
+    }
+  });
+
+  return resumen;
+}
+
+function renderizarModalCumplimiento(resumen) {
+  if (!complianceModalGrid || !complianceCaseList) {
+    return;
+  }
+
+  const porcentajeAtencion =
+    resumen.total === 0
+      ? 0
+      : Math.round((resumen.atendidas / resumen.total) * 100);
+
+  complianceModalGrid.innerHTML = `
+    <article class="compliance-modal-stat">
+      <span>Total de incidencias</span>
+      <strong>${resumen.total}</strong>
+      <p>Reportes registrados en la plataforma.</p>
+    </article>
+
+    <article class="compliance-modal-stat success">
+      <span>Atendidas</span>
+      <strong>${resumen.atendidas}</strong>
+      <p>Casos cerrados o confirmados por el ciudadano.</p>
+    </article>
+
+    <article class="compliance-modal-stat">
+      <span>Avance de atención</span>
+      <strong>${porcentajeAtencion}%</strong>
+      <p>Porcentaje operativo de cumplimiento actual.</p>
+    </article>
+
+    <article class="compliance-modal-stat warning">
+      <span>Casos críticos</span>
+      <strong>${resumen.criticas}</strong>
+      <p>Reportes que requieren seguimiento prioritario.</p>
+    </article>
+  `;
+
+  complianceCaseList.innerHTML = "";
+
+  if (resumen.casosSeguimiento.length === 0) {
+    complianceCaseList.innerHTML = `
+      <div class="compliance-empty">
+        No hay incidencias críticas pendientes de seguimiento.
+      </div>
+    `;
+    return;
+  }
+
+  resumen.casosSeguimiento.slice(0, 5).forEach((incidencia) => {
+    const article = document.createElement("article");
+    article.classList.add("compliance-case-item");
+
+    article.innerHTML = `
+      <div>
+        <span class="compliance-case-code">${incidencia.id}</span>
+        <h4>${incidencia.titulo}</h4>
+        <p>${incidencia.ubicacion}</p>
+      </div>
+
+      <div class="compliance-case-tags">
+        <span>${incidencia.estado}</span>
+        <span>${incidencia.prioridad}</span>
+      </div>
+    `;
+
+    complianceCaseList.appendChild(article);
+  });
+}
+
+function activarModalCumplimiento() {
+  if (!openComplianceModal || !closeComplianceModal || !complianceModal) {
+    return;
+  }
+
+  openComplianceModal.addEventListener("click", () => {
+    complianceModal.removeAttribute("hidden");
+    document.body.style.overflow = "hidden";
+  });
+
+  closeComplianceModal.addEventListener("click", cerrarModalCumplimiento);
+
+  complianceModal.addEventListener("click", (event) => {
+    if (event.target === complianceModal) {
+      cerrarModalCumplimiento();
+    }
+  });
+}
+
+function cerrarModalCumplimiento() {
+  complianceModal.setAttribute("hidden", "");
+  document.body.style.overflow = "";
+}
+
+function renderizarCierreOperativo(incidencias) {
+  if (!closureValidationList || !closureValidatedCount) {
+    return;
+  }
+
+  closureValidationList.innerHTML = "";
+  closureValidatedCount.textContent = "0";
+
+  const candidatas = incidencias.filter((incidencia) => {
+    return (
+      incidencia.estado === "Resuelto" ||
+      incidencia.estado === "Confirmado" ||
+      incidencia.estado === "Solucionado"
+    );
+  });
+
+  if (candidatas.length === 0) {
+    closureValidationList.innerHTML = `
+      <div class="closure-empty">
+        No hay incidencias atendidas disponibles para validar cierre operativo.
+      </div>
+    `;
+    return;
+  }
+
+  candidatas.slice(0, 5).forEach((incidencia) => {
+    const article = document.createElement("article");
+    article.classList.add("closure-item");
+    article.dataset.id = incidencia.id;
+
+    article.innerHTML = `
+      <div class="closure-main">
+        <span class="closure-code">${incidencia.id}</span>
+        <h3>${incidencia.titulo}</h3>
+        <p>${incidencia.ubicacion}</p>
+
+        <div class="closure-tags">
+          <span>${incidencia.estado}</span>
+          <span>${incidencia.area}</span>
+        </div>
+      </div>
+
+      <div class="closure-action-box">
+        <span class="closure-status">Pendiente de validación</span>
+        <button class="closure-button" data-id="${incidencia.id}">
+          Validar cierre
+        </button>
+      </div>
+    `;
+
+    closureValidationList.appendChild(article);
+  });
+
+  activarBotonesCierre();
+}
+
+function activarBotonesCierre() {
+  const botones = document.querySelectorAll(".closure-button");
+
+  botones.forEach((boton) => {
+    boton.addEventListener("click", () => {
+      const id = boton.dataset.id;
+      const item = document.querySelector(`.closure-item[data-id="${id}"]`);
+
+      if (!item) {
+        return;
+      }
+
+      item.classList.add("closure-validated");
+
+      const status = item.querySelector(".closure-status");
+      status.textContent = "Cierre operativo validado";
+
+      boton.textContent = "Validado";
+      boton.disabled = true;
+
+      actualizarContadorCierres();
+    });
+  });
+}
+
+function actualizarContadorCierres() {
+  const validados = document.querySelectorAll(".closure-validated").length;
+  closureValidatedCount.textContent = validados;
 }
 
 function contarPorCampo(lista, campo) {
