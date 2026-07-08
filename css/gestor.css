@@ -885,6 +885,385 @@ main {
 }
 
 /* =====================
+   US42 - Supervisión de cumplimiento
+   ===================== */
+.compliance-card {
+  margin-top: 24px;
+}
+
+.compliance-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.compliance-open-button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  background: var(--primary);
+  color: var(--white);
+  font-family: "Manrope", sans-serif;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.compliance-open-button:hover {
+  background: #0b4f8c;
+}
+
+.compliance-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.compliance-summary-item {
+  padding: 18px;
+  border-radius: 18px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+}
+
+.compliance-summary-item span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.compliance-summary-item strong {
+  display: block;
+  margin-top: 8px;
+  font-family: "Manrope", sans-serif;
+  font-size: 32px;
+  color: var(--primary);
+}
+
+.compliance-summary-item.warning strong {
+  color: var(--danger);
+}
+
+.compliance-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.58);
+}
+
+.compliance-modal-overlay[hidden] {
+  display: none;
+}
+
+.compliance-modal {
+  width: min(920px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 28px;
+  border-radius: 28px;
+  background: var(--white);
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.28);
+}
+
+.compliance-modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.compliance-modal-header h2 {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  font-size: 28px;
+}
+
+.compliance-modal-header p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.compliance-close-button {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--soft-blue);
+  color: var(--primary);
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.compliance-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.compliance-modal-stat {
+  padding: 18px;
+  border-radius: 18px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+}
+
+.compliance-modal-stat span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.compliance-modal-stat strong {
+  display: block;
+  margin-top: 8px;
+  font-family: "Manrope", sans-serif;
+  font-size: 32px;
+  color: var(--primary);
+}
+
+.compliance-modal-stat p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.compliance-modal-stat.success strong {
+  color: var(--secondary);
+}
+
+.compliance-modal-stat.warning strong {
+  color: var(--danger);
+}
+
+.compliance-modal-list {
+  margin-top: 26px;
+}
+
+.compliance-modal-list h3 {
+  margin: 0 0 14px;
+  font-family: "Manrope", sans-serif;
+  font-size: 21px;
+}
+
+.compliance-case-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px;
+  border-radius: 18px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+}
+
+.compliance-case-item + .compliance-case-item {
+  margin-top: 12px;
+}
+
+.compliance-case-code {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.compliance-case-item h4 {
+  margin: 5px 0;
+  font-family: "Manrope", sans-serif;
+  font-size: 17px;
+}
+
+.compliance-case-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.compliance-case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.compliance-case-tags span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--soft-blue);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.compliance-empty {
+  padding: 18px;
+  border-radius: 18px;
+  background: #f8fafc;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+}
+
+/* =====================
+   US43 - Validación de cierre operativo
+   ===================== */
+.closure-card {
+  margin-top: 24px;
+}
+
+.closure-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.closure-counter {
+  min-width: 170px;
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--soft-green);
+  text-align: center;
+}
+
+.closure-counter strong {
+  display: block;
+  font-family: "Manrope", sans-serif;
+  font-size: 34px;
+  color: var(--secondary);
+}
+
+.closure-counter span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.closure-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.closure-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 18px;
+  border-radius: 20px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  border-left: 6px solid var(--primary);
+  transition: 0.2s ease;
+}
+
+.closure-item.closure-validated {
+  background: #f0fdf4;
+  border-left-color: var(--secondary);
+}
+
+.closure-item.closure-validated h3,
+.closure-item.closure-validated p {
+  text-decoration: line-through;
+  opacity: 0.72;
+}
+
+.closure-code {
+  display: inline-flex;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.closure-main h3 {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.closure-main p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.closure-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.closure-tags span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.closure-action-box {
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+}
+
+.closure-status {
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--soft-blue);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.closure-validated .closure-status {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.closure-button {
+  border: 0;
+  border-radius: 12px;
+  padding: 11px 16px;
+  background: var(--primary);
+  color: var(--white);
+  font-family: "Manrope", sans-serif;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.closure-button:hover {
+  background: #0b4f8c;
+}
+
+.closure-button:disabled {
+  background: var(--secondary);
+  cursor: not-allowed;
+}
+
+.closure-empty {
+  padding: 18px;
+  border-radius: 18px;
+  background: #f8fafc;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+}
+
+/* =====================
    Footer
    ===================== */
 .site-footer {
@@ -940,14 +1319,26 @@ main {
   }
 
   .manager-hero,
-  .impact-heading {
+  .impact-heading,
+  .early-alerts-heading,
+  .compliance-heading,
+  .closure-heading {
     align-items: flex-start;
     flex-direction: column;
   }
 
-  .impact-map-link {
+  .impact-map-link,
+  .alerts-counter,
+  .compliance-open-button,
+  .closure-counter {
     width: 100%;
   }
+
+  .compliance-summary-grid,
+  .compliance-modal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
 }
 
 @media (max-width: 900px) {
@@ -1020,6 +1411,32 @@ main {
   }
 
   .alert-action {
+    width: 100%;
+  }
+
+  .compliance-summary-grid,
+  .compliance-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .compliance-case-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .compliance-case-tags {
+    justify-content: flex-start;
+  }
+
+  .closure-item {
+    grid-template-columns: 1fr;
+  }
+
+  .closure-action-box {
+    justify-items: stretch;
+  }
+
+  .closure-button {
     width: 100%;
   }
 
