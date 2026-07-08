@@ -6,6 +6,21 @@ const managerCriticalZones = document.getElementById("managerCriticalZones");
 const managerMappedIncidents = document.getElementById("managerMappedIncidents");
 const managerCategoryChart = document.getElementById("managerCategoryChart");
 const managerAreaRanking = document.getElementById("managerAreaRanking");
+const managerImpactList = document.getElementById("managerImpactList");
+const managerEarlyAlerts = document.getElementById("managerEarlyAlerts");
+const managerAlertCount = document.getElementById("managerAlertCount");
+
+const complianceResolved = document.getElementById("complianceResolved");
+const complianceProcess = document.getElementById("complianceProcess");
+const compliancePending = document.getElementById("compliancePending");
+const complianceCritical = document.getElementById("complianceCritical");
+const openComplianceModal = document.getElementById("openComplianceModal");
+const closeComplianceModal = document.getElementById("closeComplianceModal");
+const complianceModal = document.getElementById("complianceModal");
+const complianceModalGrid = document.getElementById("complianceModalGrid");
+const complianceCaseList = document.getElementById("complianceCaseList");
+const closureValidationList = document.getElementById("closureValidationList");
+const closureValidatedCount = document.getElementById("closureValidatedCount");
 
 const managerPending = document.getElementById("managerPending");
 const managerProcessing = document.getElementById("managerProcessing");
@@ -19,6 +34,10 @@ async function cargarDashboardGestor() {
   renderizarCategorias(incidencias);
   renderizarEstadosGestor(incidencias);
   renderizarAreasGestor(incidencias);
+  renderizarPrioridadImpacto(incidencias);
+  renderizarAlertasTempranas(incidencias);
+  renderizarCumplimientoAtencion(incidencias);
+  renderizarCierreOperativo(incidencias);
 }
 
 function actualizarKpisGestor(incidencias) {
@@ -136,6 +155,578 @@ function renderizarAreasGestor(incidencias) {
 
     managerAreaRanking.appendChild(div);
   });
+}
+
+function renderizarPrioridadImpacto(incidencias) {
+  if (!managerImpactList) {
+    return;
+  }
+
+  managerImpactList.innerHTML = "";
+
+  const priorizadas = incidencias
+    .map((incidencia) => {
+      const puntaje = calcularPuntajeImpacto(incidencia);
+      const nivel = obtenerNivelImpacto(puntaje);
+
+      return {
+        ...incidencia,
+        puntaje,
+        nivel,
+        motivoImpacto: construirMotivoImpacto(incidencia),
+      };
+    })
+    .sort((a, b) => b.puntaje - a.puntaje);
+
+  if (priorizadas.length === 0) {
+    managerImpactList.innerHTML = `
+      <div class="impact-empty">
+        No hay incidencias disponibles para priorizar.
+      </div>
+    `;
+    return;
+  }
+
+  priorizadas.slice(0, 5).forEach((incidencia, index) => {
+    const article = document.createElement("article");
+    article.classList.add(
+      "impact-item",
+      obtenerClaseImpacto(incidencia.nivel),
+    );
+
+    article.innerHTML = `
+      <div class="impact-position">${index + 1}</div>
+
+      <div class="impact-content">
+        <div class="impact-title-row">
+          <div>
+            <span class="impact-code">${incidencia.id}</span>
+            <h3>${incidencia.titulo}</h3>
+          </div>
+
+          <span class="impact-badge">${incidencia.nivel}</span>
+        </div>
+
+        <p>${incidencia.motivoImpacto}</p>
+
+        <div class="impact-meta">
+          <span>${incidencia.categoria}</span>
+          <span>${incidencia.estado}</span>
+          <span>${incidencia.area}</span>
+        </div>
+
+        <div class="impact-score">
+          <div>
+            <strong>${incidencia.puntaje}</strong>
+            <span>puntos de impacto</span>
+          </div>
+
+          <div class="impact-track">
+            <div
+              class="impact-fill"
+              style="width: ${Math.min(incidencia.puntaje, 100)}%"
+            ></div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    managerImpactList.appendChild(article);
+  });
+}
+
+function calcularPuntajeImpacto(incidencia) {
+  let puntaje = 0;
+
+  if (incidencia.prioridad === "Alta") {
+    puntaje += 45;
+  } else if (incidencia.prioridad === "Media") {
+    puntaje += 30;
+  } else {
+    puntaje += 15;
+  }
+
+  if (incidencia.estado === "Pendiente") {
+    puntaje += 30;
+  } else if (incidencia.estado === "Derivado") {
+    puntaje += 24;
+  } else if (incidencia.estado === "Procesando") {
+    puntaje += 20;
+  } else if (incidencia.estado === "Reabierto") {
+    puntaje += 32;
+  } else {
+    puntaje += 6;
+  }
+
+  if (
+    incidencia.categoria === "Alumbrado público" ||
+    incidencia.categoria === "Baches y hundimientos"
+  ) {
+    puntaje += 15;
+  } else if (incidencia.categoria === "Acumulación de residuos") {
+    puntaje += 10;
+  } else {
+    puntaje += 6;
+  }
+
+  if (incidencia.area === "Servicios públicos") {
+    puntaje += 6;
+  }
+
+  return Math.min(puntaje, 100);
+}
+
+function obtenerNivelImpacto(puntaje) {
+  if (puntaje >= 85) {
+    return "Impacto crítico";
+  }
+
+  if (puntaje >= 70) {
+    return "Impacto alto";
+  }
+
+  if (puntaje >= 50) {
+    return "Impacto medio";
+  }
+
+  return "Impacto bajo";
+}
+
+function construirMotivoImpacto(incidencia) {
+  const motivos = [];
+
+  if (incidencia.prioridad === "Alta") {
+    motivos.push("alta prioridad");
+  }
+
+  if (incidencia.estado !== "Resuelto") {
+    motivos.push("caso aún no resuelto");
+  }
+
+  if (incidencia.estado === "Pendiente") {
+    motivos.push("requiere primera atención");
+  }
+
+  if (incidencia.estado === "Reabierto") {
+    motivos.push("reabierto por el ciudadano");
+  }
+
+  if (
+    incidencia.categoria === "Alumbrado público" ||
+    incidencia.categoria === "Baches y hundimientos"
+  ) {
+    motivos.push("posible afectación a seguridad o tránsito");
+  }
+
+  if (motivos.length === 0) {
+    motivos.push("caso con impacto operativo bajo");
+  }
+
+  return `Priorizado por ${motivos.join(", ")}.`;
+}
+
+function obtenerClaseImpacto(nivel) {
+  if (nivel === "Impacto crítico") {
+    return "impact-critical";
+  }
+
+  if (nivel === "Impacto alto") {
+    return "impact-high";
+  }
+
+  if (nivel === "Impacto medio") {
+    return "impact-medium";
+  }
+
+  return "impact-low";
+}
+
+function renderizarAlertasTempranas(incidencias) {
+  if (!managerEarlyAlerts || !managerAlertCount) {
+    return;
+  }
+
+  managerEarlyAlerts.innerHTML = "";
+
+  const alertas = incidencias
+    .filter((incidencia) => esIncidenciaCritica(incidencia))
+    .map((incidencia) => {
+      return {
+        ...incidencia,
+        alerta: construirAlertaTemprana(incidencia),
+      };
+    })
+    .sort((a, b) => b.alerta.puntaje - a.alerta.puntaje);
+
+  managerAlertCount.textContent = alertas.length;
+
+  if (alertas.length === 0) {
+    managerEarlyAlerts.innerHTML = `
+      <div class="early-alert-empty">
+        No hay alertas críticas activas en este momento.
+      </div>
+    `;
+    return;
+  }
+
+  alertas.slice(0, 4).forEach((incidencia) => {
+    const article = document.createElement("article");
+    article.classList.add("early-alert-item", incidencia.alerta.clase);
+
+    article.innerHTML = `
+      <div class="alert-icon">!</div>
+
+      <div class="alert-content">
+        <div class="alert-title-row">
+          <div>
+            <span class="alert-code">${incidencia.id}</span>
+            <h3>${incidencia.titulo}</h3>
+          </div>
+
+          <span class="alert-level">${incidencia.alerta.nivel}</span>
+        </div>
+
+        <p>${incidencia.alerta.mensaje}</p>
+
+        <div class="alert-details">
+          <span>${incidencia.ubicacion}</span>
+          <span>${incidencia.estado}</span>
+          <span>${incidencia.prioridad}</span>
+        </div>
+      </div>
+
+      <a class="alert-action" href="mapa.html">Ver mapa</a>
+    `;
+
+    managerEarlyAlerts.appendChild(article);
+  });
+}
+
+function esIncidenciaCritica(incidencia) {
+  if (incidencia.estado === "Resuelto") {
+    return false;
+  }
+
+  if (incidencia.estado === "Confirmado") {
+    return false;
+  }
+
+  if (incidencia.prioridad === "Alta") {
+    return true;
+  }
+
+  if (incidencia.estado === "Reabierto") {
+    return true;
+  }
+
+  if (
+    incidencia.categoria === "Alumbrado público" ||
+    incidencia.categoria === "Baches y hundimientos"
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+function construirAlertaTemprana(incidencia) {
+  let puntaje = 0;
+  const razones = [];
+
+  if (incidencia.prioridad === "Alta") {
+    puntaje += 45;
+    razones.push("alta prioridad");
+  }
+
+  if (incidencia.estado === "Pendiente") {
+    puntaje += 30;
+    razones.push("requiere primera atención");
+  }
+
+  if (incidencia.estado === "Reabierto") {
+    puntaje += 35;
+    razones.push("fue reabierta por el ciudadano");
+  }
+
+  if (incidencia.estado === "Procesando") {
+    puntaje += 18;
+    razones.push("continúa en atención");
+  }
+
+  if (
+    incidencia.categoria === "Alumbrado público" ||
+    incidencia.categoria === "Baches y hundimientos"
+  ) {
+    puntaje += 20;
+    razones.push("puede afectar seguridad o tránsito");
+  }
+
+  if (razones.length === 0) {
+    razones.push("requiere monitoreo preventivo");
+  }
+
+  if (puntaje >= 85) {
+    return {
+      nivel: "Crítica",
+      clase: "alert-critical",
+      puntaje,
+      mensaje: `Atención inmediata: ${razones.join(", ")}.`,
+    };
+  }
+
+  if (puntaje >= 65) {
+    return {
+      nivel: "Alta",
+      clase: "alert-high",
+      puntaje,
+      mensaje: `Revisar pronto: ${razones.join(", ")}.`,
+    };
+  }
+
+  return {
+    nivel: "Preventiva",
+    clase: "alert-medium",
+    puntaje,
+    mensaje: `Monitorear: ${razones.join(", ")}.`,
+  };
+}
+
+function renderizarCumplimientoAtencion(incidencias) {
+  if (
+    !complianceResolved ||
+    !complianceProcess ||
+    !compliancePending ||
+    !complianceCritical
+  ) {
+    return;
+  }
+
+  const resumen = calcularCumplimientoAtencion(incidencias);
+
+  complianceResolved.textContent = resumen.atendidas;
+  complianceProcess.textContent = resumen.enProceso;
+  compliancePending.textContent = resumen.pendientes;
+  complianceCritical.textContent = resumen.criticas;
+
+  renderizarModalCumplimiento(resumen);
+  activarModalCumplimiento();
+}
+
+function calcularCumplimientoAtencion(incidencias) {
+  const resumen = {
+    total: incidencias.length,
+    atendidas: 0,
+    enProceso: 0,
+    pendientes: 0,
+    criticas: 0,
+    casosSeguimiento: [],
+  };
+
+  incidencias.forEach((incidencia) => {
+    if (
+      incidencia.estado === "Resuelto" ||
+      incidencia.estado === "Confirmado"
+    ) {
+      resumen.atendidas += 1;
+    } else if (
+      incidencia.estado === "Procesando" ||
+      incidencia.estado === "Derivado"
+    ) {
+      resumen.enProceso += 1;
+    } else {
+      resumen.pendientes += 1;
+    }
+
+    const esCritica =
+      incidencia.prioridad === "Alta" ||
+      incidencia.estado === "Reabierto" ||
+      incidencia.estado === "Pendiente";
+
+    if (esCritica && incidencia.estado !== "Resuelto") {
+      resumen.criticas += 1;
+      resumen.casosSeguimiento.push(incidencia);
+    }
+  });
+
+  return resumen;
+}
+
+function renderizarModalCumplimiento(resumen) {
+  if (!complianceModalGrid || !complianceCaseList) {
+    return;
+  }
+
+  const porcentajeAtencion =
+    resumen.total === 0
+      ? 0
+      : Math.round((resumen.atendidas / resumen.total) * 100);
+
+  complianceModalGrid.innerHTML = `
+    <article class="compliance-modal-stat">
+      <span>Total de incidencias</span>
+      <strong>${resumen.total}</strong>
+      <p>Reportes registrados en la plataforma.</p>
+    </article>
+
+    <article class="compliance-modal-stat success">
+      <span>Atendidas</span>
+      <strong>${resumen.atendidas}</strong>
+      <p>Casos cerrados o confirmados por el ciudadano.</p>
+    </article>
+
+    <article class="compliance-modal-stat">
+      <span>Avance de atención</span>
+      <strong>${porcentajeAtencion}%</strong>
+      <p>Porcentaje operativo de cumplimiento actual.</p>
+    </article>
+
+    <article class="compliance-modal-stat warning">
+      <span>Casos críticos</span>
+      <strong>${resumen.criticas}</strong>
+      <p>Reportes que requieren seguimiento prioritario.</p>
+    </article>
+  `;
+
+  complianceCaseList.innerHTML = "";
+
+  if (resumen.casosSeguimiento.length === 0) {
+    complianceCaseList.innerHTML = `
+      <div class="compliance-empty">
+        No hay incidencias críticas pendientes de seguimiento.
+      </div>
+    `;
+    return;
+  }
+
+  resumen.casosSeguimiento.slice(0, 5).forEach((incidencia) => {
+    const article = document.createElement("article");
+    article.classList.add("compliance-case-item");
+
+    article.innerHTML = `
+      <div>
+        <span class="compliance-case-code">${incidencia.id}</span>
+        <h4>${incidencia.titulo}</h4>
+        <p>${incidencia.ubicacion}</p>
+      </div>
+
+      <div class="compliance-case-tags">
+        <span>${incidencia.estado}</span>
+        <span>${incidencia.prioridad}</span>
+      </div>
+    `;
+
+    complianceCaseList.appendChild(article);
+  });
+}
+
+function activarModalCumplimiento() {
+  if (!openComplianceModal || !closeComplianceModal || !complianceModal) {
+    return;
+  }
+
+  openComplianceModal.addEventListener("click", () => {
+    complianceModal.removeAttribute("hidden");
+    document.body.style.overflow = "hidden";
+  });
+
+  closeComplianceModal.addEventListener("click", cerrarModalCumplimiento);
+
+  complianceModal.addEventListener("click", (event) => {
+    if (event.target === complianceModal) {
+      cerrarModalCumplimiento();
+    }
+  });
+}
+
+function cerrarModalCumplimiento() {
+  complianceModal.setAttribute("hidden", "");
+  document.body.style.overflow = "";
+}
+
+function renderizarCierreOperativo(incidencias) {
+  if (!closureValidationList || !closureValidatedCount) {
+    return;
+  }
+
+  closureValidationList.innerHTML = "";
+  closureValidatedCount.textContent = "0";
+
+  const candidatas = incidencias.filter((incidencia) => {
+    return (
+      incidencia.estado === "Resuelto" ||
+      incidencia.estado === "Confirmado" ||
+      incidencia.estado === "Solucionado"
+    );
+  });
+
+  if (candidatas.length === 0) {
+    closureValidationList.innerHTML = `
+      <div class="closure-empty">
+        No hay incidencias atendidas disponibles para validar cierre operativo.
+      </div>
+    `;
+    return;
+  }
+
+  candidatas.slice(0, 5).forEach((incidencia) => {
+    const article = document.createElement("article");
+    article.classList.add("closure-item");
+    article.dataset.id = incidencia.id;
+
+    article.innerHTML = `
+      <div class="closure-main">
+        <span class="closure-code">${incidencia.id}</span>
+        <h3>${incidencia.titulo}</h3>
+        <p>${incidencia.ubicacion}</p>
+
+        <div class="closure-tags">
+          <span>${incidencia.estado}</span>
+          <span>${incidencia.area}</span>
+        </div>
+      </div>
+
+      <div class="closure-action-box">
+        <span class="closure-status">Pendiente de validación</span>
+        <button class="closure-button" data-id="${incidencia.id}">
+          Validar cierre
+        </button>
+      </div>
+    `;
+
+    closureValidationList.appendChild(article);
+  });
+
+  activarBotonesCierre();
+}
+
+function activarBotonesCierre() {
+  const botones = document.querySelectorAll(".closure-button");
+
+  botones.forEach((boton) => {
+    boton.addEventListener("click", () => {
+      const id = boton.dataset.id;
+      const item = document.querySelector(`.closure-item[data-id="${id}"]`);
+
+      if (!item) {
+        return;
+      }
+
+      item.classList.add("closure-validated");
+
+      const status = item.querySelector(".closure-status");
+      status.textContent = "Cierre operativo validado";
+
+      boton.textContent = "Validado";
+      boton.disabled = true;
+
+      actualizarContadorCierres();
+    });
+  });
+}
+
+function actualizarContadorCierres() {
+  const validados = document.querySelectorAll(".closure-validated").length;
+  closureValidatedCount.textContent = validados;
 }
 
 function contarPorCampo(lista, campo) {

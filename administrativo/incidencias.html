@@ -210,9 +210,43 @@
       <small class="file-help">Formatos permitidos: JPG, PNG, PDF.</small>
     </div>
 
-    <div class="history-panel">
-      <h3>Historial</h3>
-      <div id="historyList"></div>
+    <div class="history-panel complete-history-panel">
+      <div class="complete-history-heading">
+        <div>
+          <span class="history-eyebrow">US22</span>
+          <h3>Historial completo del caso</h3>
+          <p>
+            Línea de tiempo con los cambios realizados desde el registro de la
+            incidencia hasta su estado actual.
+          </p>
+        </div>
+
+        <span class="history-total" id="historyTotalEvents">0 eventos</span>
+      </div>
+
+      <div class="history-summary-grid">
+        <article>
+          <span>Registro inicial</span>
+          <strong id="historyCreatedAt">-</strong>
+        </article>
+
+        <article>
+          <span>Última actualización</span>
+          <strong id="historyLastUpdate">-</strong>
+        </article>
+
+        <article>
+          <span>Estado actual</span>
+          <strong id="historyCurrentStatus">-</strong>
+        </article>
+
+        <article>
+          <span>Área responsable</span>
+          <strong id="historyCurrentArea">-</strong>
+        </article>
+      </div>
+
+      <div id="historyList" class="complete-history-list"></div>
     </div>
 
     <button id="saveChangesButton" type="button" style="width: 100%; margin-top: 20px;">Guardar cambios</button>

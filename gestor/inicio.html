@@ -73,6 +73,86 @@
           <p>Puntos con mayor concentración de reportes.</p>
         </article>
       </section>
+      
+      <section class="panel-card early-alerts-card">
+        <div class="early-alerts-heading">
+          <div class="section-heading">
+            <span class="analysis-tag">Alertas tempranas</span>
+            <h2>Alertas tempranas sobre incidencias críticas</h2>
+            <p>
+              Detección preventiva de reportes que requieren atención rápida
+              por su prioridad, estado o posible impacto en la seguridad
+              ciudadana.
+            </p>
+          </div>
+
+          <div class="alerts-counter">
+            <strong id="managerAlertCount">0</strong>
+            <span>alertas activas</span>
+          </div>
+        </div>
+
+      <section class="panel-card compliance-card">
+        <div class="compliance-heading">
+          <div class="section-heading">
+            <span class="analysis-tag">Supervisión operativa</span>
+            <h2>Supervisar cumplimiento de atención</h2>
+            <p>
+              Revisión del avance de atención municipal según estado de las
+              incidencias registradas y casos que requieren seguimiento.
+            </p>
+          </div>
+
+          <button class="compliance-open-button" id="openComplianceModal">
+            Ver cumplimiento
+          </button>
+        </div>
+
+        <div class="compliance-summary-grid">
+          <article class="compliance-summary-item">
+            <span>Atendidas</span>
+            <strong id="complianceResolved">0</strong>
+          </article>
+
+          <article class="compliance-summary-item">
+            <span>En proceso</span>
+            <strong id="complianceProcess">0</strong>
+          </article>
+
+          <article class="compliance-summary-item">
+            <span>Pendientes</span>
+            <strong id="compliancePending">0</strong>
+          </article>
+
+          <article class="compliance-summary-item warning">
+            <span>Críticas</span>
+            <strong id="complianceCritical">0</strong>
+          </article>
+        </div>
+      </section>
+
+        <div class="early-alerts-list" id="managerEarlyAlerts"></div>
+      </section>
+
+      <section class="panel-card closure-card">
+        <div class="closure-heading">
+          <div class="section-heading">
+            <span class="analysis-tag">Cierre operativo</span>
+            <h2>Validar cierre operativo del caso</h2>
+            <p>
+              Confirmación final de incidencias atendidas para registrar su
+              cierre operativo dentro del seguimiento municipal.
+            </p>
+          </div>
+
+          <div class="closure-counter">
+            <strong id="closureValidatedCount">0</strong>
+            <span>cierres validados</span>
+          </div>
+        </div>
+
+        <div class="closure-list" id="closureValidationList"></div>
+      </section>
 
       <section class="manager-layout">
         <article class="panel-card map-preview-card">
@@ -148,6 +228,32 @@
         </article>
       </section>
     </main>
+
+  <div class="compliance-modal-overlay" id="complianceModal" hidden>
+    <section class="compliance-modal" role="dialog" aria-modal="true">
+      <div class="compliance-modal-header">
+        <div>
+          <span class="analysis-tag">US42</span>
+          <h2>Supervisión de cumplimiento de atención</h2>
+          <p>
+            Estado operativo de las incidencias para controlar el avance de
+            respuesta municipal.
+          </p>
+        </div>
+
+        <button class="compliance-close-button" id="closeComplianceModal">
+          ×
+        </button>
+      </div>
+
+      <div class="compliance-modal-grid" id="complianceModalGrid"></div>
+
+      <div class="compliance-modal-list">
+        <h3>Casos que requieren seguimiento</h3>
+        <div id="complianceCaseList"></div>
+      </div>
+    </section>
+  </div>
 
     <footer class="site-footer">
       <div>
