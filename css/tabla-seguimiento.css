@@ -1,0 +1,119 @@
+/* Contenedor de la tarjeta de la tabla */
+.tarjeta-tabla {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+}
+
+/* Cabecera de la tabla */
+.cabecera-tabla {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.titulo-tabla {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0;
+}
+
+.contador-reportes {
+  font-size: 14px;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+/* Contenedor con scroll horizontal para móviles */
+.contenedor-responsivo {
+  overflow-x: auto;
+  width: 100%;
+}
+
+/* Estilos de la tabla Civix */
+.tabla-civix {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.tabla-civix th {
+  color: #6B7280;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
+  white-space: nowrap;
+}
+
+.tabla-civix td {
+  padding: 16px;
+  border-bottom: 1px solid #F3F4F6;
+  color: #4B5563;
+  vertical-align: middle;
+}
+
+.tabla-civix tr:last-child td {
+  border-bottom: none;
+}
+
+.td-id {
+  font-weight: 600;
+  color: #1F2937;
+}
+
+/* Etiquetas de estado (Badges) */
+.etiqueta-estado-tabla {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+}
+
+.etiqueta-estado-tabla.pendiente {
+  background-color: #DBEAFE;
+  color: #1D4ED8;
+}
+
+.etiqueta-estado-tabla.derivado {
+  background-color: #FEF3C7;
+  color: #D97706;
+}
+
+.etiqueta-estado-tabla.en-proceso {
+  background-color: #F3E8FF; /* Morado como en tu mockup */
+  color: #7E22CE;
+}
+
+.etiqueta-estado-tabla.solucionado {
+  background-color: #D1FAE5;
+  color: #059669;
+}
+
+/* Botón de Acción */
+.boton-detalle {
+  background-color: #0F5FA8; /* Azul primario Civix */
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.boton-detalle:hover {
+  background-color: #0C4D8A;
+}
+
