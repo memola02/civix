@@ -90,6 +90,7 @@
 .etiqueta-estado-tabla.en-proceso { background-color: #F3E8FF; color: #7E22CE; }
 .etiqueta-estado-tabla.solucionado { background-color: #D1FAE5; color: #059669; }
 .etiqueta-estado-tabla.confirmado { background-color: #DCFCE7; color: #047857; }
+.etiqueta-estado-tabla.reabierto { background-color: #FEE2E2; color: #B91C1C; }
 
 .boton-detalle {
   background-color: #0F5FA8; 
@@ -350,6 +351,13 @@
   box-shadow: 0 0 0 1px #CBD5E1;
 }
 
+.marcador-tiempo.reabierto {
+  background-color: #B91C1C;
+}
+
+.marcador-tiempo.confirmado {
+  background-color: #0FA8A5;
+}
 
 .contenido-evento {
   display: flex;
@@ -427,14 +435,18 @@
 
 
 .boton-secundario.rechazar {
-  background-color: transparent;
-  color: #1E293B;
-  border: 1px solid #94A3B8;
+  background-color: #FFFFFF;
+  color: #B91C1C;
+  border: 1px solid #FCA5A5;
   padding: 10px 20px;
   border-radius: 8px;
   font-family: 'Manrope', sans-serif;
   font-weight: 600;
   cursor: pointer;
+}
+
+.boton-secundario.rechazar:hover {
+  background-color: #FEE2E2;
 }
 
 
