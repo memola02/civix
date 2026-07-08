@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const botonesDetalle = document.querySelectorAll('.boton-detalle');
 
 
+  // Variables para controlar la fila seleccionada y los botones de acción
+  let filaActual = null; 
+  const btnConfirmar = document.querySelector('.boton-primario.confirmar');
+  const btnRechazar = document.querySelector('.boton-secundario.rechazar');
+
+
   // Datos extra simulados
   const datosExtra = {
     "#INC-005": { desc: "Poste apagado generando total oscuridad e inseguridad.", plazo: "15/06/2026" },
@@ -15,22 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   botonesDetalle.forEach(boton => {
     boton.addEventListener('click', (e) => {
-      const fila = e.target.closest('tr');
+      filaActual = e.target.closest('tr');
       
-      // Extraer datos de la fila
-      const id = fila.querySelector('.td-id').textContent;
-      const titulo = fila.cells[1].textContent;
-      const categoria = fila.cells[2].textContent;
-      const area = fila.cells[3].textContent;
-      const ubicacion = fila.cells[4].textContent;
-      const fecha = fila.cells[5].textContent;
+      const id = filaActual.querySelector('.td-id').textContent;
+      const titulo = filaActual.cells[1].textContent;
+      const categoria = filaActual.cells[2].textContent;
+      const area = filaActual.cells[3].textContent;
+      const ubicacion = filaActual.cells[4].textContent;
+      const fecha = filaActual.cells[5].textContent;
       
-      const spanEstado = fila.querySelector('.etiqueta-estado-tabla');
+      const spanEstado = filaActual.querySelector('.etiqueta-estado-tabla');
       const estadoTexto = spanEstado.textContent;
       const claseEstado = spanEstado.classList[1]; 
 
 
-      // Inyectar info básica
       document.getElementById('modalId').textContent = "Incidencia " + id;
       document.getElementById('modalTitulo').textContent = titulo;
       document.getElementById('modalCategoria').textContent = categoria;
@@ -44,11 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
 
-      // 1. Construir el Historial Dinámico
       const ulHistorial = document.getElementById('modalLineaTiempo');
       let htmlHistorial = '';
       
-      // Si está solucionado
       if(estadoTexto === "Solucionado") {
         htmlHistorial += `
           <li class="evento-historial">
@@ -61,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
           </li>`;
       }
       
-      // Si está en proceso o solucionado
       if(estadoTexto === "En proceso" || estadoTexto === "Solucionado") {
         htmlHistorial += `
           <li class="evento-historial">
@@ -74,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
           </li>`;
       }
       
-      // Si está derivado o más avanzado
       if(estadoTexto !== "Pendiente") {
         htmlHistorial += `
           <li class="evento-historial">
@@ -88,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
 
-      // Todas tienen el evento base de registro
       htmlHistorial += `
         <li class="evento-historial">
           <div class="marcador-tiempo"></div>
@@ -103,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
       ulHistorial.innerHTML = htmlHistorial;
 
 
-      // 2. Controlar la caja de Confirmación de Resolución (US27)
       const tarjetaConfirmacion = document.getElementById('modalConfirmacion');
       if(estadoTexto === "Solucionado") {
         tarjetaConfirmacion.removeAttribute('hidden');
@@ -113,16 +111,60 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
 
-      // Actualizar pie del modal
       const modalEstado = document.getElementById('modalEstado');
       modalEstado.textContent = estadoTexto;
       modalEstado.className = "etiqueta-estado-tabla " + claseEstado;
 
 
-      // Mostrar modal
       modal.removeAttribute('hidden');
       document.body.style.overflow = 'hidden';
     });
+  });
+
+
+  // --- LÓGICA DE CONFIRMACIÓN / RECHAZO ---
+  function cambiarEstado(nuevoTexto, nuevaClase) {
+    if(!filaActual) return;
+    
+    // 1. Actualiza el estado en la tabla que está detrás del modal
+    const spanEstadoTabla = filaActual.querySelector('.etiqueta-estado-tabla');
+    spanEstadoTabla.textContent = nuevoTexto;
+    spanEstadoTabla.className = "etiqueta-estado-tabla " + nuevaClase;
+    
+    // 2. Actualiza el estado en el pie de la ventana modal
+    const modalEstado = document.getElementById('modalEstado');
+    modalEstado.textContent = nuevoTexto;
+    modalEstado.className = "etiqueta-estado-tabla " + nuevaClase;
+    
+    // 3. Oculta la tarjeta de confirmación
+    document.getElementById('modalConfirmacion').setAttribute('hidden', '');
+    
+    // 4. Inyecta la acción del usuario en el historial visual
+    const ulHistorial = document.getElementById('modalLineaTiempo');
+    const nuevoEvento = document.createElement('li');
+    nuevoEvento.className = "evento-historial";
+    nuevoEvento.innerHTML = `
+        <div class="marcador-tiempo"></div>
+        <div class="contenido-evento">
+          <time class="fecha-evento">Justo ahora</time>
+          <p class="accion-evento">El ciudadano marcó el reporte como <strong>${nuevoTexto}</strong>.</p>
+          <span class="responsable-evento">Responsable: Ciudadano</span>
+        </div>
+    `;
+    ulHistorial.insertBefore(nuevoEvento, ulHistorial.firstChild);
+  }
+
+
+  // Interceptamos los clics en los botones para que no recarguen la página
+  btnConfirmar.addEventListener('click', (e) => {
+    e.preventDefault(); 
+    cambiarEstado('Confirmado', 'confirmado');
+  });
+
+
+  btnRechazar.addEventListener('click', (e) => {
+    e.preventDefault(); 
+    cambiarEstado('Derivado', 'derivado');
   });
 
 
@@ -134,10 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   btnCerrar.addEventListener('click', cerrarModal);
-  
   modal.addEventListener('click', (e) => {
-    if(e.target === modal) {
-      cerrarModal();
-    }
+    if(e.target === modal) cerrarModal();
   });
 });
