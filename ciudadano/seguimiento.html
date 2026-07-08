@@ -6,19 +6,18 @@
     <title>Civix | Seguimiento de reportes</title>
     <link rel="icon" href="../logo/civix.png">
    
-    <!-- Tipografías -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- Hojas de estilo necesarias para esta vista -->
+
     <link rel="stylesheet" href="../css/ciudadano.css" />
     <link rel="stylesheet" href="../css/reportar.css" />
-    <link rel="stylesheet" href="../css/tabla-seguimiento.css" /> <!-- ¡Crucial para que la tabla se vea bien! -->
+    <link rel="stylesheet" href="../css/tabla-seguimiento.css" />
   </head>
 
+
   <body>
-    <!-- CABECERA -->
     <header class="top-header">
       <a class="brand" href="inicio.html">
         <img src="../logo/civix.png" alt="Civix" class="brand-logo" />
@@ -27,7 +26,7 @@
       <button class="profile-button" aria-label="Abrir perfil de usuario"></button>
     </header>
 
-    <!-- NAVEGACIÓN -->
+
     <nav class="main-nav">
       <a class="nav-link" href="inicio.html">Inicio</a>
       <a class="nav-link" href="reportar.html">Reportar incidencia</a>
@@ -35,8 +34,8 @@
       <a class="help-button" href="#">Ayuda & Tutorial</a>
     </nav>
 
+
     <main>
-      <!-- BLOQUE AZUL (HERO) -->
       <section class="report-hero">
         <div>
           <span class="eyebrow">Portal Ciudadano</span>
@@ -47,17 +46,17 @@
         </div>
       </section>
 
-      <!-- TABLA DE INCIDENCIAS -->
+
       <section class="report-layout" style="max-width: 1100px;">
         <div class="tarjeta-tabla">
-         
           <div class="cabecera-tabla">
             <h2 class="titulo-tabla">Tus incidencias</h2>
             <span class="contador-reportes">4 reportes encontrados</span>
           </div>
 
+
           <div class="contenedor-responsivo">
-            <table class="tabla-civix">
+            <table class="tabla-civix" id="tablaIncidencias">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -71,7 +70,6 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- Fila 1 -->
                 <tr>
                   <td class="td-id">#INC-005</td>
                   <td>Poste apagado en Av. Arequipa</td>
@@ -80,14 +78,8 @@
                   <td>Av. Arequipa 1200</td>
                   <td>11/06/2026</td>
                   <td><span class="etiqueta-estado-tabla pendiente">Pendiente</span></td>
-                  <td>
-                    <!-- Asegúrate de que este botón redirija al HTML del detalle -->
-                    <a href="detalle-reporte.html" style="text-decoration: none;">
-                      <button class="boton-detalle">Ver detalle</button>
-                    </a>
-                  </td>
+                  <td><button class="boton-detalle">Ver detalle</button></td>
                 </tr>
-                <!-- Fila 2 -->
                 <tr>
                   <td class="td-id">#INC-004</td>
                   <td>Acumulación de residuos en Parque Kennedy</td>
@@ -96,13 +88,8 @@
                   <td>Parque Kennedy</td>
                   <td>10/06/2026</td>
                   <td><span class="etiqueta-estado-tabla derivado">Derivado</span></td>
-                  <td>
-                    <a href="detalle-reporte.html" style="text-decoration: none;">
-                      <button class="boton-detalle">Ver detalle</button>
-                    </a>
-                  </td>
+                  <td><button class="boton-detalle">Ver detalle</button></td>
                 </tr>
-                <!-- Fila 3 -->
                 <tr>
                   <td class="td-id">#INC-003</td>
                   <td>Bache profundo en Av. Primavera</td>
@@ -111,13 +98,8 @@
                   <td>Av. Primavera 450</td>
                   <td>09/06/2026</td>
                   <td><span class="etiqueta-estado-tabla en-proceso">En proceso</span></td>
-                  <td>
-                    <a href="detalle-reporte.html" style="text-decoration: none;">
-                      <button class="boton-detalle">Ver detalle</button>
-                    </a>
-                  </td>
+                  <td><button class="boton-detalle">Ver detalle</button></td>
                 </tr>
-                <!-- Fila 4 -->
                 <tr>
                   <td class="td-id">#INC-001</td>
                   <td>Semáforo intermitente cruce peligroso</td>
@@ -126,21 +108,16 @@
                   <td>Av. Benavides con Rep. de Panamá</td>
                   <td>11/06/2026</td>
                   <td><span class="etiqueta-estado-tabla solucionado">Solucionado</span></td>
-                  <td>
-                    <a href="detalle-reporte.html" style="text-decoration: none;">
-                      <button class="boton-detalle">Ver detalle</button>
-                    </a>
-                  </td>
+                  <td><button class="boton-detalle">Ver detalle</button></td>
                 </tr>
               </tbody>
             </table>
           </div>
-
         </div>
       </section>
     </main>
 
-    <!-- PIE DE PÁGINA -->
+
     <footer class="site-footer">
       <div>
         <h3>Atención al ciudadano</h3>
@@ -148,9 +125,7 @@
       </div>
       <div>
         <h3>Horario de atención</h3>
-        <p>
-          De lunes a viernes: 6:00 a.m. - 6:00 p.m. | Feriados: 8:00 a.m. - 12:00 p.m.
-        </p>
+        <p>De lunes a viernes: 6:00 a.m. - 6:00 p.m. | Feriados: 8:00 a.m. - 12:00 p.m.</p>
       </div>
       <div>
         <h3>Síguenos</h3>
@@ -162,7 +137,53 @@
       </div>
     </footer>
 
-    <!-- Tu script para interactividad -->
+
+    <div class="overlay-modal" id="modalDetalle" hidden>
+      <div class="tarjeta-modal">
+        
+        <div class="cabecera-modal">
+          <span class="eyebrow-modal">DETALLE DE INCIDENCIA</span>
+          <button class="btn-cerrar-modal" id="btnCerrarModal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        
+        <h2 class="titulo-incidencia-modal" id="modalId">Incidencia #INC-000</h2>
+        
+        <div class="cuerpo-modal">
+          <div class="contenedor-imagen-modal">
+            <img src="../fotos/placeholder.jpg" alt="Evidencia de la incidencia" id="modalImagen">
+          </div>
+          
+          <div class="lista-info-modal">
+            <p><strong>Título:</strong> <span id="modalTitulo">-</span></p>
+            <p><strong>Categoría:</strong> <span id="modalCategoria">-</span></p>
+            <p><strong>Área asignada:</strong> <span id="modalArea">-</span></p>
+            <p><strong>Ubicación:</strong> <span id="modalUbicacion">-</span></p>
+            <p><strong>Fecha de reporte:</strong> <span id="modalFecha">-</span></p>
+            <p class="desc-modal"><strong>Descripción:</strong> <span id="modalDescripcion">Cargando detalles de la incidencia reportada por el ciudadano...</span></p>
+          </div>
+        </div>
+        
+        <div class="pie-modal">
+          <div class="pie-item">
+            <span class="pie-label">Estado actual</span>
+            <span class="etiqueta-estado-tabla" id="modalEstado">Cargando</span>
+          </div>
+          <div class="pie-item text-right">
+            <span class="pie-label">Fecha estimada de atención</span>
+            <span class="pie-valor" id="modalPlazo">Por confirmar</span>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
     <script src="../js/seguimiento.js"></script>
   </body>
 </html>
