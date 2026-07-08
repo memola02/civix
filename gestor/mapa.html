@@ -3,192 +3,173 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Civix | Plataforma de gestión ciudadana</title>
-    <link rel="icon" href="logo/civix.png">
+    <title>Civix | Mapa de incidencias</title>
+    <link rel="icon" href="../logo/civix.png">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="css/landing.css" />
+    <link rel="stylesheet" href="../css/gestor.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
   </head>
 
   <body>
-    <header class="landing-header">
-      <a href="index.html" class="brand">
-        <img src="logo/civix.png" alt="Civix" />
-        <span>Civix</span>
+    <header class="top-header">
+      <a class="brand" href="inicio.html">
+        <img src="../logo/civix.png" alt="Civix" class="brand-logo" />
+        <span class="brand-name">Civix</span>
       </a>
 
-      <nav class="header-nav">
-        <a href="#problema">Problema</a>
-        <a href="#beneficios">Beneficios</a>
-        <a href="#funcionamiento">Cómo funciona</a>
-        <a href="#perfiles">Ingresar</a>
-      </nav>
+      <button class="profile-button" aria-label="Abrir perfil de usuario">
+        <span></span>
+      </button>
     </header>
 
+    <nav class="main-nav">
+      <a class="nav-link" href="inicio.html">Inicio</a>
+      <a class="nav-link active" href="mapa.html">Mapa de incidencias</a>
+      <a class="nav-link" href="metricas.html">Métricas</a>
+      <a class="help-button" href="#">Ayuda & Tutorial</a>
+    </nav>
+
     <main>
-      <!-- HERO -->
-      <section class="hero">
-        <div class="hero-content">
-          <span class="eyebrow">Plataforma de gestión ciudadana</span>
-
-          <h1>Reporta problemas urbanos y conoce su estado en tiempo real.</h1>
-
+      <section class="manager-hero map-hero">
+        <div>
+          <span class="eyebrow">Mapa territorial</span>
+          <h1>Monitoreo geográfico de incidencias</h1>
           <p>
-            Civix conecta a ciudadanos y municipalidades para agilizar el
-            reporte, seguimiento y atención de incidencias como baches,
-            alumbrado público, basura y otros problemas urbanos desde una sola
-            plataforma.
+            Visualiza reportes ciudadanos por ubicación, categoría, estado y
+            prioridad para detectar zonas críticas.
           </p>
+        </div>
+      </section>
 
-          <div class="hero-actions">
-            <a href="#perfiles" class="btn primary">Probar Civix</a>
-            <a href="#funcionamiento" class="btn secondary">Cómo funciona</a>
+      <section class="map-dashboard">
+        <aside class="map-sidebar">
+          <div class="section-heading">
+            <h2>Filtros</h2>
+            <p>Refina los reportes visibles en el mapa.</p>
           </div>
-        </div>
 
-        <div class="hero-image">
-          <img src="images/hero.jpeg" alt="Civix" />
-        </div>
+          <div class="filter-group">
+            <label for="mapCategoryFilter">Categoría</label>
+            <select id="mapCategoryFilter">
+              <option value="">Todas</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="mapStatusFilter">Estado</label>
+            <select id="mapStatusFilter">
+              <option value="">Todos</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Procesando">Procesando</option>
+              <option value="Derivado">Derivado</option>
+              <option value="Resuelto">Resuelto</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="mapPriorityFilter">Prioridad</label>
+            <select id="mapPriorityFilter">
+              <option value="">Todas</option>
+              <option value="Alta">Alta</option>
+              <option value="Media">Media</option>
+              <option value="Baja">Baja</option>
+            </select>
+          </div>
+
+          <button class="secondary-action map-reset" id="resetMapFilters">
+            Limpiar filtros
+          </button>
+
+          <div class="map-stats">
+            <article>
+              <span>Visibles</span>
+              <strong id="visibleIncidentsCount">0</strong>
+            </article>
+
+            <article>
+              <span>Alta prioridad</span>
+              <strong id="visibleHighPriorityCount">0</strong>
+            </article>
+
+            <article>
+              <span>Pendientes</span>
+              <strong id="visiblePendingCount">0</strong>
+            </article>
+          </div>
+        </aside>
+
+        <section class="map-panel">
+          <div id="managerMap"></div>
+        </section>
       </section>
 
-      <!-- PROBLEMA -->
-      <section id="problema" class="section">
-        <div class="section-heading">
-          <span class="eyebrow">El problema</span>
-
-          <h2>Reportar una incidencia aún es un proceso lento y poco transparente.</h2>
-
-          <p>
-            Muchos ciudadanos no saben dónde reportar un problema urbano o
-            desconocen qué ocurrió después del reporte. Civix centraliza este
-            proceso para facilitar la comunicación y el seguimiento entre la
-            ciudadanía y las entidades responsables.
-          </p>
-        </div>
-      </section>
-
-      <!-- BENEFICIOS -->
-      <section id="beneficios" class="section">
-        <div class="section-heading">
-          <span class="eyebrow">Beneficios</span>
-
-          <h2>Una plataforma para todos los actores del proceso.</h2>
-
-          <p>
-            Civix simplifica la gestión de incidencias desde el reporte hasta su
-            resolución.
-          </p>
-        </div>
-
-        <div class="features-grid">
-          <article class="feature-card">
-            <h3>Reporta fácilmente</h3>
-
+      <section class="panel-card critical-zones-card">
+        <div class="critical-zones-heading">
+          <div class="section-heading">
+            <span class="analysis-tag">Análisis automático</span>
+            <h2>Zonas críticas detectadas automáticamente</h2>
             <p>
-              Registra incidencias con ubicación, imágenes y descripción desde
-              una interfaz sencilla.
+              Clasificación territorial calculada según prioridad, estado y
+              concentración de reportes visibles.
             </p>
-          </article>
+          </div>
 
-          <article class="feature-card">
-            <h3>Da seguimiento</h3>
-
-            <p>
-              Consulta el estado de tus reportes y recibe actualizaciones del
-              proceso.
-            </p>
-          </article>
-
-          <article class="feature-card">
-            <h3>Optimiza la gestión</h3>
-
-            <p>
-              Los administradores clasifican, priorizan y asignan incidencias
-              para agilizar su atención.
-            </p>
-          </article>
+          <div class="heatmap-legend">
+            <span><i class="legend-dot high"></i>Riesgo alto</span>
+            <span><i class="legend-dot medium"></i>Riesgo medio</span>
+            <span><i class="legend-dot low"></i>Riesgo bajo</span>
+          </div>
         </div>
+
+        <div class="critical-zones-grid" id="criticalZonesList"></div>
       </section>
 
-      <!-- FUNCIONAMIENTO -->
-      <section id="funcionamiento" class="section sprint-section">
+      <section class="panel-card map-results-card">
         <div class="section-heading">
-          <span class="eyebrow">Cómo funciona</span>
-
-          <h2>Cuatro pasos para gestionar una incidencia.</h2>
-
-          <p>
-            Civix organiza el proceso completo desde el reporte ciudadano hasta
-            la resolución del problema.
-          </p>
+          <h2>Incidencias visibles</h2>
+          <p>Listado de reportes que coinciden con los filtros actuales.</p>
         </div>
 
-        <div class="sprint-list">
-          <div>
-            <strong>1. Reporte</strong>
-            <p>El ciudadano registra la incidencia con evidencia y ubicación.</p>
-          </div>
-
-          <div>
-            <strong>2. Revisión</strong>
-            <p>La municipalidad revisa, clasifica y prioriza el caso.</p>
-          </div>
-
-          <div>
-            <strong>3. Atención</strong>
-            <p>El gestor recibe la tarea y actualiza el avance de la solución.</p>
-          </div>
-
-          <div>
-            <strong>4. Seguimiento</strong>
-            <p>El ciudadano consulta el estado hasta el cierre del reporte.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- PERFILES -->
-      <section id="perfiles" class="section">
-        <div class="section-heading">
-          <span class="eyebrow">Accede a Civix</span>
-
-          <h2>Explora la plataforma según tu rol.</h2>
-
-          <p>
-            Cada perfil ofrece herramientas específicas para participar en la
-            gestión de incidencias urbanas.
-          </p>
-        </div>
-
-        <div class="profiles-grid">
-          <a href="ciudadano/inicio.html" class="profile-card">
-            <span class="profile-icon">👤</span>
-            <h3>Ciudadano</h3>
-            <p>Reporta incidencias y consulta el estado de tus solicitudes.</p>
-          </a>
-
-          <a href="administrativo/inicio.html" class="profile-card">
-            <span class="profile-icon">🗂️</span>
-            <h3>Administrador</h3>
-            <p>Revisa, clasifica y gestiona los reportes recibidos.</p>
-          </a>
-
-          <a href="gestor/inicio.html" class="profile-card">
-            <span class="profile-icon">🛠️</span>
-            <h3>Gestor</h3>
-            <p>Consulta tareas asignadas y actualiza el progreso de atención.</p>
-          </a>
-        </div>
+        <div class="map-results-list" id="mapResultsList"></div>
       </section>
     </main>
 
-    <footer class="landing-footer">
-      <p>Civix — Plataforma para la gestión de incidencias urbanas.</p>
-      <span>Proyecto académico</span>
+    <footer class="site-footer">
+      <div>
+        <h3>Atención al ciudadano</h3>
+        <p>01-2134100</p>
+      </div>
+
+      <div>
+        <h3>Horario de atención</h3>
+        <p>
+          De lunes a viernes: 6:00 a.m. - 6:00 p.m. | Feriados: 8:00 a.m. -
+          12:00 p.m.
+        </p>
+      </div>
+
+      <div>
+        <h3>Síguenos</h3>
+        <div class="social-links">
+          <span>f</span>
+          <span>◎</span>
+          <span>☘</span>
+        </div>
+      </div>
     </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../js/incidenciasStore.js"></script>
+    <script src="../js/gestorMapa.js"></script>
   </body>
 </html>
