@@ -270,3 +270,177 @@
   .cuerpo-modal { grid-template-columns: 1fr; }
   .tarjeta-modal { padding: 24px; }
 }
+
+ /* Layout interno del nuevo Modal */
+.cuerpo-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+
+.grid-info-modal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+
+.separador-modal {
+  border: 0;
+  height: 1px;
+  background-color: #E2E8F0;
+  margin: 0;
+}
+
+
+.subtitulo-modal-interno {
+  font-family: 'Manrope', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 20px 0;
+}
+
+
+/* =========================================
+   US24 - Línea de Tiempo (Historial)
+   ========================================= */
+.linea-tiempo {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+
+.linea-tiempo::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  bottom: 0;
+  left: 9px;
+  width: 2px;
+  background-color: #E2E8F0;
+}
+
+
+.evento-historial {
+  display: flex;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+
+.evento-historial:last-child { margin-bottom: 0; }
+
+
+.marcador-tiempo {
+  width: 14px;
+  height: 14px;
+  background-color: #0F5FA8;
+  border-radius: 50%;
+  border: 3px solid #F8FAFC; /* Color de fondo del modal */
+  position: relative;
+  z-index: 1;
+  margin-right: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px #CBD5E1;
+}
+
+
+.contenido-evento {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.fecha-evento {
+  font-size: 13px;
+  color: #64748B;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+
+.accion-evento {
+  font-size: 15px;
+  color: #1E293B;
+  margin: 0 0 6px 0;
+  line-height: 1.4;
+}
+
+
+.responsable-evento {
+  font-size: 13px;
+  color: #475569;
+  background-color: #F1F5F9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+
+
+/* =========================================
+   US27 - Confirmación de Resolución
+   ========================================= */
+.tarjeta-confirmacion-resolucion {
+  background-color: #FFFFFF;
+  border: 2px solid #0FA8A5; /* Turquesa */
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(15, 168, 165, 0.1);
+}
+
+
+.texto-confirmacion {
+  font-size: 14px;
+  color: #475569;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+
+.texto-confirmacion strong { color: #0FA8A5; }
+
+
+.acciones-confirmacion {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+
+.boton-primario.confirmar {
+  background-color: #0F5FA8;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+.boton-secundario.rechazar {
+  background-color: transparent;
+  color: #1E293B;
+  border: 1px solid #94A3B8;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .grid-info-modal { grid-template-columns: 1fr; }
+  .acciones-confirmacion { flex-direction: column; }
+  .acciones-confirmacion button { width: 100%; }
+}
