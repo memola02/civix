@@ -6,6 +6,7 @@ const managerCriticalZones = document.getElementById("managerCriticalZones");
 const managerMappedIncidents = document.getElementById("managerMappedIncidents");
 const managerCategoryChart = document.getElementById("managerCategoryChart");
 const managerAreaRanking = document.getElementById("managerAreaRanking");
+const managerImpactList = document.getElementById("managerImpactList");
 
 const managerPending = document.getElementById("managerPending");
 const managerProcessing = document.getElementById("managerProcessing");
@@ -19,6 +20,7 @@ async function cargarDashboardGestor() {
   renderizarCategorias(incidencias);
   renderizarEstadosGestor(incidencias);
   renderizarAreasGestor(incidencias);
+  renderizarPrioridadImpacto(incidencias);
 }
 
 function actualizarKpisGestor(incidencias) {
@@ -136,6 +138,190 @@ function renderizarAreasGestor(incidencias) {
 
     managerAreaRanking.appendChild(div);
   });
+}
+
+function renderizarPrioridadImpacto(incidencias) {
+  if (!managerImpactList) {
+    return;
+  }
+
+  managerImpactList.innerHTML = "";
+
+  const priorizadas = incidencias
+    .map((incidencia) => {
+      const puntaje = calcularPuntajeImpacto(incidencia);
+      const nivel = obtenerNivelImpacto(puntaje);
+
+      return {
+        ...incidencia,
+        puntaje,
+        nivel,
+        motivoImpacto: construirMotivoImpacto(incidencia),
+      };
+    })
+    .sort((a, b) => b.puntaje - a.puntaje);
+
+  if (priorizadas.length === 0) {
+    managerImpactList.innerHTML = `
+      <div class="impact-empty">
+        No hay incidencias disponibles para priorizar.
+      </div>
+    `;
+    return;
+  }
+
+  priorizadas.slice(0, 5).forEach((incidencia, index) => {
+    const article = document.createElement("article");
+    article.classList.add(
+      "impact-item",
+      obtenerClaseImpacto(incidencia.nivel),
+    );
+
+    article.innerHTML = `
+      <div class="impact-position">${index + 1}</div>
+
+      <div class="impact-content">
+        <div class="impact-title-row">
+          <div>
+            <span class="impact-code">${incidencia.id}</span>
+            <h3>${incidencia.titulo}</h3>
+          </div>
+
+          <span class="impact-badge">${incidencia.nivel}</span>
+        </div>
+
+        <p>${incidencia.motivoImpacto}</p>
+
+        <div class="impact-meta">
+          <span>${incidencia.categoria}</span>
+          <span>${incidencia.estado}</span>
+          <span>${incidencia.area}</span>
+        </div>
+
+        <div class="impact-score">
+          <div>
+            <strong>${incidencia.puntaje}</strong>
+            <span>puntos de impacto</span>
+          </div>
+
+          <div class="impact-track">
+            <div
+              class="impact-fill"
+              style="width: ${Math.min(incidencia.puntaje, 100)}%"
+            ></div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    managerImpactList.appendChild(article);
+  });
+}
+
+function calcularPuntajeImpacto(incidencia) {
+  let puntaje = 0;
+
+  if (incidencia.prioridad === "Alta") {
+    puntaje += 45;
+  } else if (incidencia.prioridad === "Media") {
+    puntaje += 30;
+  } else {
+    puntaje += 15;
+  }
+
+  if (incidencia.estado === "Pendiente") {
+    puntaje += 30;
+  } else if (incidencia.estado === "Derivado") {
+    puntaje += 24;
+  } else if (incidencia.estado === "Procesando") {
+    puntaje += 20;
+  } else if (incidencia.estado === "Reabierto") {
+    puntaje += 32;
+  } else {
+    puntaje += 6;
+  }
+
+  if (
+    incidencia.categoria === "Alumbrado público" ||
+    incidencia.categoria === "Baches y hundimientos"
+  ) {
+    puntaje += 15;
+  } else if (incidencia.categoria === "Acumulación de residuos") {
+    puntaje += 10;
+  } else {
+    puntaje += 6;
+  }
+
+  if (incidencia.area === "Servicios públicos") {
+    puntaje += 6;
+  }
+
+  return Math.min(puntaje, 100);
+}
+
+function obtenerNivelImpacto(puntaje) {
+  if (puntaje >= 85) {
+    return "Impacto crítico";
+  }
+
+  if (puntaje >= 70) {
+    return "Impacto alto";
+  }
+
+  if (puntaje >= 50) {
+    return "Impacto medio";
+  }
+
+  return "Impacto bajo";
+}
+
+function construirMotivoImpacto(incidencia) {
+  const motivos = [];
+
+  if (incidencia.prioridad === "Alta") {
+    motivos.push("alta prioridad");
+  }
+
+  if (incidencia.estado !== "Resuelto") {
+    motivos.push("caso aún no resuelto");
+  }
+
+  if (incidencia.estado === "Pendiente") {
+    motivos.push("requiere primera atención");
+  }
+
+  if (incidencia.estado === "Reabierto") {
+    motivos.push("reabierto por el ciudadano");
+  }
+
+  if (
+    incidencia.categoria === "Alumbrado público" ||
+    incidencia.categoria === "Baches y hundimientos"
+  ) {
+    motivos.push("posible afectación a seguridad o tránsito");
+  }
+
+  if (motivos.length === 0) {
+    motivos.push("caso con impacto operativo bajo");
+  }
+
+  return `Priorizado por ${motivos.join(", ")}.`;
+}
+
+function obtenerClaseImpacto(nivel) {
+  if (nivel === "Impacto crítico") {
+    return "impact-critical";
+  }
+
+  if (nivel === "Impacto alto") {
+    return "impact-high";
+  }
+
+  if (nivel === "Impacto medio") {
+    return "impact-medium";
+  }
+
+  return "impact-low";
 }
 
 function contarPorCampo(lista, campo) {
