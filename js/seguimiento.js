@@ -30,6 +30,156 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let filaActual = null;
 
+  const notificationButton = document.getElementById("notificationButton");
+  const notificationPanel = document.getElementById("notificationPanel");
+  const notificationClose = document.getElementById("notificationClose");
+  const notificationCount = document.getElementById("notificationCount");
+  const notificationsList = document.getElementById("notificationsList");
+
+  renderizarNotificaciones();
+  activarPanelNotificaciones();
+
+  function activarPanelNotificaciones() {
+    if (!notificationButton || !notificationPanel || !notificationClose) {
+      return;
+    }
+
+    notificationButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      if (notificationPanel.hasAttribute("hidden")) {
+        notificationPanel.removeAttribute("hidden");
+      } else {
+        notificationPanel.setAttribute("hidden", "");
+      }
+    });
+
+    notificationClose.addEventListener("click", () => {
+      notificationPanel.setAttribute("hidden", "");
+    });
+
+    document.addEventListener("click", (event) => {
+      const clickDentro = event.target.closest(".notification-wrapper");
+
+      if (!clickDentro) {
+        notificationPanel.setAttribute("hidden", "");
+      }
+    });
+  }
+
+  function renderizarNotificaciones() {
+    if (!notificationsList || !notificationCount) {
+      return;
+    }
+
+    const notificaciones = construirNotificaciones();
+    notificationCount.textContent = notificaciones.length;
+    notificationsList.innerHTML = "";
+
+    if (notificaciones.length === 0) {
+      notificationsList.innerHTML = `
+        <div class="notification-empty">
+          No tienes actualizaciones nuevas por el momento.
+        </div>
+      `;
+      return;
+    }
+
+    notificaciones.forEach((notificacion) => {
+      const article = document.createElement("article");
+      article.classList.add("notification-item", notificacion.clase);
+
+      article.innerHTML = `
+        <div class="notification-dot"></div>
+
+        <div>
+          <div class="notification-title-row">
+            <strong>${notificacion.id}</strong>
+            <span>${notificacion.estado}</span>
+          </div>
+
+          <p>${notificacion.mensaje}</p>
+          <small>${notificacion.ubicacion}</small>
+        </div>
+      `;
+
+      notificationsList.appendChild(article);
+    });
+  }
+
+  function construirNotificaciones() {
+    const filas = Array.from(
+      document.querySelectorAll("#tablaIncidencias tbody tr")
+    );
+
+    return filas.map((fila) => {
+      const id = fila.querySelector(".td-id").textContent;
+      const titulo = fila.cells[1].textContent;
+      const ubicacion = fila.cells[4].textContent;
+      const estado = fila.querySelector(".etiqueta-estado-tabla").textContent;
+
+      return {
+        id,
+        estado,
+        ubicacion,
+        clase: obtenerClaseNotificacion(estado),
+        mensaje: obtenerMensajeNotificacion(id, titulo, estado),
+      };
+    });
+  }
+
+  function obtenerMensajeNotificacion(id, titulo, estado) {
+    if (estado === "Pendiente") {
+      return `${titulo} aún se encuentra pendiente de primera atención.`;
+    }
+
+    if (estado === "Derivado") {
+      return `${titulo} fue derivada al área responsable para evaluación.`;
+    }
+
+    if (estado === "En proceso") {
+      return `${titulo} se encuentra en atención por la municipalidad.`;
+    }
+
+    if (estado === "Solucionado") {
+      return `${titulo} fue marcada como solucionada. Puedes confirmar o reabrir el caso.`;
+    }
+
+    if (estado === "Confirmado") {
+      return `${titulo} fue confirmada como atendida correctamente.`;
+    }
+
+    if (estado === "Reabierto") {
+      return `${titulo} fue reabierta porque el problema aún persiste.`;
+    }
+
+    return `Se registró una actualización para la incidencia ${id}.`;
+  }
+
+  function obtenerClaseNotificacion(estado) {
+    if (estado === "Pendiente") {
+      return "notification-pending";
+    }
+
+    if (estado === "Derivado") {
+      return "notification-derived";
+    }
+
+    if (estado === "En proceso") {
+      return "notification-process";
+    }
+
+    if (estado === "Solucionado" || estado === "Confirmado") {
+      return "notification-solved";
+    }
+
+    if (estado === "Reabierto") {
+      return "notification-reopened";
+    }
+
+    return "notification-general";
+  }
+
   botonesDetalle.forEach((boton) => {
     boton.addEventListener("click", (e) => {
       filaActual = e.target.closest("tr");
@@ -209,6 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     ulHistorial.insertBefore(nuevoEvento, ulHistorial.firstChild);
+    renderizarNotificaciones();
   }
 
   btnConfirmar.addEventListener("click", (e) => {
